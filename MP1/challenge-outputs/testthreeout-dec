@@ -1,0 +1,60 @@
+
+Welcome to the LC-3 simulator.
+
+The contents of the LC-3 tools distribution, including sources, management
+tools, and data, are Copyright (c) 2003 Steven S. Lumetta.
+
+The LC-3 tools distribution is free software covered by the GNU General
+Public License, and you are welcome to modify it and/or distribute copies
+of it under certain conditions.  The file COPYING (distributed with the
+tools) specifies those conditions.  There is absolutely no warranty for
+the LC-3 tools distribution, as described in the file NO_WARRANTY (also
+distributed with the tools).
+
+Have fun.
+
+
+--- halting the LC-3 ---
+
+PC=x0494 IR=xB1AE PSR=x0400 (ZERO)
+R0=x0000 R1=x7FFF R2=x0000 R3=x0000 R4=x0000 R5=x0000 R6=x0000 R7=x0490 
+                   x0494 x0FF9 BRNZP TRAP_HALT
+Loaded "testthree.obj" and set PC to x4000
+Loaded "prog1.obj" and set PC to x3000
+@ 00217
+A 03072
+B 00000
+C 00000
+D 00000
+E 00000
+F 00000
+G 00000
+H 00000
+I 00000
+J 00000
+K 00000
+L 00000
+M 00000
+N 00000
+O 00000
+P 00000
+Q 00000
+R 00000
+S 00000
+T 00000
+U 00000
+V 00000
+W 00000
+X 00000
+Y 00000
+Z 00000
+
+
+--- halting the LC-3 ---
+
+PC=x0494 IR=xB1AE PSR=x0400 (ZERO)
+R0=x0000 R1=x7FFF R2=x001B R3=x0000 R4=xFFE6 R5=xFFE0 R6=x0000 R7=x0490 
+                   x0494 x0FF9 BRNZP TRAP_HALT
+3F00: 00D9 0C00 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000  ............
+3F0C: 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000  ............
+3F18: 0000 0000 0000                                               ...         
