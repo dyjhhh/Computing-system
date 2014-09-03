@@ -1,0 +1,2 @@
+Introductory Paragraph for prog1.asm:
+This code count the occurrences of each letter (A to Z) in an ASCII string, terminated by a NUL character.  Lower case and upper case is counted together, and a count also kept of all non-alphabetic characters (not counting the terminal NUL). The frequency of each letter and non-alphabetic characters is represented by a hexadecimal number after the character. The resulting histogram is stored starting at x3F00, with the non-alphabetic count at x3F00, and the count for each letter in x3F01 (A) through x3F1A (Z).
