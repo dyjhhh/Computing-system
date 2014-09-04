@@ -1,0 +1,44 @@
+
+Welcome to the LC-3 simulator.
+
+The contents of the LC-3 tools distribution, including sources, management
+tools, and data, are Copyright (c) 2003 Steven S. Lumetta.
+
+The LC-3 tools distribution is free software covered by the GNU General
+Public License, and you are welcome to modify it and/or distribute copies
+of it under certain conditions.  The file COPYING (distributed with the
+tools) specifies those conditions.  There is absolutely no warranty for
+the LC-3 tools distribution, as described in the file NO_WARRANTY (also
+distributed with the tools).
+
+Have fun.
+
+
+--- halting the LC-3 ---
+
+PC=x0494 IR=xB1AE PSR=x0400 (ZERO)
+R0=x0000 R1=x7FFF R2=x0000 R3=x0000 R4=x0000 R5=x0000 R6=x0000 R7=x0490 
+                   x0494 x0FF9 BRNZP TRAP_HALT
+Loaded "invalid-two.obj" and set PC to x5000
+Loaded "prog2.obj" and set PC to x3000
+00 05 27 07
+01 FF FF FF
+02 FF FF FF
+03 11 04 FF
+04 06 02 08
+05 19 A3 08
+06 FF FF FF
+07 04 FF FF
+
+
+--- halting the LC-3 ---
+
+PC=x0494 IR=xB1AE PSR=x0400 (ZERO)
+R0=x0000 R1=x7FFF R2=x4020 R3=x0000 R4=x0008 R5=xFF5D R6=x0003 R7=x0490 
+                   x0494 x0FF9 BRNZP TRAP_HALT
+3FFC: 0000 0000 0000 0000 5000 0005 0027 0007 5031 FFFF FFFF FFFF  ......'.....
+4008: 5044 FFFF FFFF FFFF 5057 0011 0004 FFFF 5083 0006 0002 0008  ............
+4014: 50AF 0019 00A3 0008 50C2 FFFF FFFF FFFF 50D5 0004 FFFF FFFF  ............
+4020: 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000  ............
+402C: 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000  ............
+4038: 0000 0000 0000 0000 0000 0000 0000 0000 0000                 .........   

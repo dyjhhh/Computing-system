@@ -1,0 +1,4 @@
+file invalid-two
+file prog2
+continue
+dump x3FFC x4040
