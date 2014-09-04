@@ -1,0 +1,37 @@
+NOTE: If you implement more than one challenge, you should do the checks
+      in the following order:
+      * first, check the size
+      * second, check the validity of choices
+      * third, check reachability
+
+Explanations of the new examples in this directory:
+
+big.asm - a database with 300 pages; you must still parse the first 256
+          correctly, but we don't compare your array after that point, so
+	  you can stop at 256 or finish processing and then check the size
+  runbig - script to test big.asm
+  bigout-normal - results without size-checking extension
+  bigout-challenge - results with size-checking extension
+
+invalid-one.asm - a database with four bad choices, all of which refer to
+                  the record just beyond the end of the database, to help
+		  make off-by-one errors easier for you
+  runinvalid-one - script to test invalid-one.asm
+  invalid-oneout-normal - results without choice validity extension
+  invalid-oneout-challenge - results with choice validity extension
+
+invalid-two.asm - a database with six bad choices
+  runinvalid-two - script to test invalid-two.asm
+  invalid-twoout-normal - results without choice validity extension
+  invalid-twoout-challenge - results with choice validity extension
+
+chained.obj - a fully reachable version of surreal; if you implement the 
+              reachability check and test it on surreal, you will find that 
+	      a number of the pages are unreachable--this fact was by design
+  surrealout-challenge - results from runsurreal with reachability extension
+  runchained - script to test chained.obj
+  chainedout - results with (or without!) reachability extension
+
+testout-paths - results for runtest with path printing extension
+chainedout-paths - results for runchained with path printing extension
+
