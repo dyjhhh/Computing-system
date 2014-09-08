@@ -33,14 +33,100 @@
 
 	.ORIG	x3000		; starting address is x3000
 
-
 	LD R3,SAMPLE
+
+	;; ---------START OF DATABSE PARSING CODE----------
+	;; Register table:
+	;; R0 : pointer to start of array (x4000) 
+	;; R1 : pointer to start of database (x5000)
+	;; R2 : pointer to current location in array
+	;; R3 : pointer to current location in database
+	;; R4 : amount of pages, counter
+	;; R5 : read data reg
+	;; R6 : choice counter (3)
+
+	;;  initialize registers
+		AND R0,R0,#0	; clear R0 to 0
+		LD R0, ARRAY_START; load R0 with x4000
+				;; (array starting addr)
+		AND R1,R1,#0	; clear R1 to 0
+		LD R1, DATABASE_START 	; load R1 with x5000
+				;;  (db starting addr)(fixed)
+		AND R2,R2,#0	 ; clear R2 to 0
+		LD R2, ARRAY_START; load R2 with x4000
+				;; (array starting addr)
+		AND R3,R3,#0	; clear R3 to 0
+	        LD R3, DATABASE_START ; load R3 with x5000
+				;;  (db starting addr)
+	        AND R4,R4,#0	; clear R4 to 0
+	        AND R5,R5,#0	; clear R5 to 0
+	        AND R6,R6,#0	; clear R6 to 0
+	        AND R7,R7,#0	; clear R7 to 0
+
+	;;  read database
+	        STR R1,R0,#0	; put addr loc x5000 into mem[x4000]
+	        ADD R2,R2,#1	; increment array pointer
+
+INC_DB_POINTER
+	        ADD R3,R3,#1	; increment database pointer
+	        AND R5,R5,#0	; clear R5
+	        LDR R5,R3,#0	; load into R5 <- mem[R3]
+				;;  i.e., R5 <- mem[db pointer]
+
+	;;  R5 now contains the data at the current database memory address
+	;;  condition codes set to R5...
+
+CHK_STRING_END
+	        BRnp INC_DB_POINTER ; loop if database entry is not NUL
+	        ADD R3,R3,#1	    ; increment R3, the db addr pointer
+
+	;;  at this point, we know the next three lines will contain the three choices
+	;;  so all we have to do is go about this loop three times..
+	        AND R6,R6,#0	; clear R6
+	        ADD R6,R6,#3	; start choice counter (R6) with 3
+
+READ_CHOICE
+	        AND R5,R5,#0	; clear R5
+	        LDR R5,R3,#0	; load mem[R3] into R5
+				;;  aka load mem[current db addr] into R5
+	        STR R5,R2,#0	; store R6 into mem[R2]
+				;;  aka store R6 into mem[current array addr]
+	        ADD R2,R2,#1	; increment array addr pointer
+	        ADD R3,R3,#1	; increment database addr pointer
+	        ADD R6,R6,#-1	; decrement choice counter (R6)
+	        BRp READ_CHOICE	; loop again if the 3rd choice wasn't stored
+
+	;;  after the three choices have been stored, check for NUL. if not,
+	;;  begin new text record
+	;;  first check for NUL.
+	
+	        AND R5,R5,#0	; clear R5
+		LDR R5,R3,#0	; load mem[R3] into R5
+				;;  aka load mem[current db addr] into R5
+	        BRz PRINT_ARRAY	; if NUL is detected in mem[R3], end program
+	        STR R3,R2,#0	; NUL not detected, store beginning of next
+				;;  text record into array
+	        ADD R2,R2,#1	; increment array addr pointer
+	        BRnzp INC_DB_POINTER 
+
+ARRAY_START     .FILL x4000
+DATABASE_START  .FILL x5000
+	;;  ---- End of Database Parsing Code ----
+
 	JSR PRINT_HEX_DIGIT	; will not work as is!
+
 	HALT
 
 SAMPLE	.FILL xAB		; data for main progam
 
-;
+	;; data for PRINT_FOUR_HEX
+
+PRINT_FOUR_HEX_R2	.BLKW #1
+PRINT_FOUR_HEX_R3	.BLKW #1
+PRINT_FOUR_HEX_R4	.BLKW #1
+PRINT_FOUR_HEX_R5	.BLKW #1
+PRINT_FOUR_HEX_R7	.BLKW #1
+	
 ; For Program 2, you must wrap the following code up as a subroutine.
 ;
 ; This code relies on another subroutine called PRINT_CHAR
@@ -67,9 +153,19 @@ PRINT_HEX_DIGIT
 
 	; print low 8 bits of R3 as hexadecimal
 
-	; shift R3 up 8 bits
+        ST R2,PRINT_HEX_DIGIT_R2	; Save registers
+	ST R3,PRINT_HEX_DIGIT_R3	;
+	ST R4,PRINT_HEX_DIGIT_R4	;
+	ST R5,PRINT_HEX_DIGIT_R5	;
+	ST R6,PRINT_HEX_DIGIT_R6	;
+	ST R7,PRINT_HEX_DIGIT_R7	;
+
+	; print low 8 digits of R3 as hexdecimal
+        ; shift R3 up 8 bits
+	
 	AND R2,R2,#0		; initialize shift count to 8
 	ADD R2,R2,#8
+	
 SHIFT_LOOP
 	ADD R3,R3,R3		; shift one bit
 	ADD R2,R2,#-1		; count down
@@ -105,13 +201,22 @@ PRINT_DIGIT
 	ADD R6,R5,#-2		; printed both digits yet?
 	BRn DIG_LOOP		; if not, go print another
 
-
-	; THIS CODE WILL NOT WORK AS IS!
-
+        LD R2,PRINT_HEX_DIGIT_R2 ;restore register
+	LD R3,PRINT_HEX_DIGIT_R3 ;
+	LD R4,PRINT_HEX_DIGIT_R4 ;
+	LD R5,PRINT_HEX_DIGIT_R5 ;
+	LD R6,PRINT_HEX_DIGIT_R6 ;
+	LD R7,PRINT_HEX_DIGIT_R7 ;
+	
 	RET
 
 	; data for PRINT_HEX subroutine
-
+PRINT_HEX_DIGIT_R2	.BLKW #1 ;avoid changing register
+PRINT_HEX_DIGIT_R3	.BLKW #1		
+PRINT_HEX_DIGIT_R4	.BLKW #1
+PRINT_HEX_DIGIT_R5	.BLKW #1
+PRINT_HEX_DIGIT_R6	.BLKW #1
+PRINT_HEX_DIGIT_R7	.BLKW #1
 ASC_ZERO	.FILL x0030	; ASCII '0'
 ASC_HIGH	.FILL x0037	; ASCII 'A' - 10
 
@@ -121,22 +226,76 @@ ASC_HIGH	.FILL x0037	; ASCII 'A' - 10
 ;   input: R2 -- 8-bit ASCII character to print to monitor
 ;   caller-saved registers: R7 (as always with LC-3)
 ;   callee-saved registers: all other registers
-;
+	;; input: R2 - 8 bit ASCII character print to monitor
+
+	;; --------PRINT_CHAR SUBROUTINE-----------
+	;; callee-save R0 and R7 into memory, check if display is ready for
+	;; next character to be printed. If it is, load contents of DDR to R2
+	;; DSR[15]=0, not ready
+	;; DSR[15]=1, ready
 
 PRINT_CHAR
-	ST	R0,PRINT_CHAR_R0	; save R0 to memory
-	ST	R7,PRINT_CHAR_R7	; save R7 to memory...why?
-	ADD	R0,R2,#0		; copy from R2
-	OUT		; cheat! (you must fix...)
+	ST	R0,PRINT_CHAR_R0	; callee-save pre contents of R0 to memery, R0 is used for checking the DSR
+	ST	R7,PRINT_CHAR_R7	; callee-save pre contents of R7 to memory, R7 will be overwritten by JSR
+
+POLL_DSR
+	LDI R0,DSR		; R0<-mem[mem[DSR]]
+				;; R0<-mem[xFE04]
+				;; load contents of DSR to R0
+ 	BRzp POLL_DSR		; loop if R0(DSR) is not ready
+
+	STI R2,DDR		; mem[mem[DDR]]<-data
+				;; mem[xFE04]
+				;; store contents of DDR to R2
+	JSR PRINT_FOUR_HEX	; jump to PRINT_FOUR_HEX subroutine
+	
 	LD	R0,PRINT_CHAR_R0	; restore R0 from memory
-	LD	R7,PRINT_CHAR_R7	; restore R7 from memory...why?
+	LD	R7,PRINT_CHAR_R7	; restore R7 from memory, because the code after the subroutine might require R7 to work properly
 	RET
 
 	; data for PRINT_CHAR subroutine
-
+DSR	.FILL xFE04
+DDR	.FILL xFE06
 PRINT_CHAR_R0	.BLKW #1
 PRINT_CHAR_R7	.BLKW #1
 
+	;; -----------PRINT_FOUR_HEX subroutine----------------
+
+
+PRINT_FOUR_HEX
+	;; R2 holds an ASCII SPACE (for printing with PRINT_CHAR)
+	;; R3 holds the hex value to print (with PRINT_HEX_DIGIT)
+	;; R4 holds the pointer to the value array (moved from input R2)
+	;; R5 is a loop counter
+
+	ST R2,PRINT_FOUR_HEX_R2	; save registers
+        ST R3,PRINT_FOUR_HEX_R3
+	ST R4,PRINT_FOUR_HEX_R4
+	ST R5,PRINT_FOUR_HEX_R5
+	ST R7,PRINT_FOUR_HEX_R7
+
+	ADD R3,R0,#0		; copy R0 to R3, print the first digit
+	JSR PRINT_HEX_DIGIT	; jump tp PRINT_HEX_DIGIT subroutine
+	
+	AND R5,R5,#0		; clear R5 to 0, prepare to loop
+	ADD R4,R2,#0		; copy R2 to R4, R2 is free to hold SPACE
+	LD  R2,SPACE		; load hex value of space (x20) into R2
+PFHLOOP
+	JSR PRINT_CHAR		; jump to PRINT_CHAR subroutine
+	LDR R3,R4,#0		;
+	JSR PRINT_HEX_DIGIT	; jump to PRINT_HEX_DIGIT subroutine
+
+	ADD R4,R4,#1		; increment R4 by 1
+	ADD R5,R5,#1		; increment R5 by 1
+	ADD R3,R5,#-3		; decrement R5 by 3
+	BRn PFHLOOP
+
+	LD R2,PRINT_FOUR_HEX_R2
+	LD R3,PRINT_FOUR_HEX_R3
+	LD R4,PRINT_FOUR_HEX_R4
+	LD R5,PRINT_FOUR_HEX_R5
+	LD R7,PRINT_FOUR_HEX_R7
+	
 
 	; the directive below tells the assembler that the program is done
 	; (so do not write any code below it!)
