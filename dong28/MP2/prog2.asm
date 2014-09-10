@@ -75,7 +75,7 @@ READ_CHOICE
 	ADD R6,R6,#-1		; decrement choice counter (R6)
 	BRp READ_CHOICE		; loop again if the 3rd choice wasn't stored
 	ADD R2,R2,#1		; increment array pointer
-	ADD R3,R3,#		; increment database pointer
+	ADD R3,R3,#1		; increment database pointer
 	LDR R5,R3,#0		; load mem[R3] into R5
 	BRz PRINTOUT		; if it is zero, start printing out characters
 	BRnzp STORE_ADDRESS	; unconditional branch to store address
@@ -95,20 +95,19 @@ PRINTOUT
 	ADD R2,R3,#0		; copy content in R3 to R2
 	
 PRINTNEWLINE
-	JSR PRINT_FOUR_HEX	
-	LD R2, NEWLINE
-	JSR PRINT_CHAR
-    ADD R0,R0,#1	
-    ADD R3,R3,#4
-    ADD R2,R3,#0
-    LDR R5,R3,#0
-    BRnp PRINTNEWLINE
+	JSR PRINT_FOUR_HEX	; jump to the subroutine print four hex
+	LD R2, NEWLINE		; load hex value of new line into R2	
+	JSR PRINT_CHAR		; jump to the print character routine
+	ADD R0,R0,#1		; increment R0
+	ADD R3,R3,#4		; store value 4 into R3
+	ADD R2,R3,#0		; store content of R3 inro R2	
+	LDR R5,R3,#0		; load mem[R3] to R5
+	BRnp PRINTNEWLINE	; if this is not NUL, loop
     
 	HALT
 
 NEWLINE .FILL x000A
 
-	
 ; For Program 2, you must wrap the following code up as a subroutine.
 ;
 ; This code relies on another subroutine called PRINT_CHAR
@@ -117,12 +116,10 @@ NEWLINE .FILL x000A
 ;   (other than R7)!
 ;
 
-
 ; if the number can be printed as hex then go to subroutine PRINT_HEX_DIGIT
 ; if the number can only be printed as ascii character
 ; go to subroutine
-        
-        
+                
         
 ; Subroutine PRINT_HEX_DIGIT
 ;   input: R3 -- 8-bit value to be printed as hex (high bits ignored)
@@ -132,7 +129,7 @@ NEWLINE .FILL x000A
 
 PRINT_HEX_DIGIT
 
-; registers used in this subroutine
+;   registers used in this subroutine
 ;   R2 -- ASCII character to be printed
 ;   R3 -- 8-bit value to be printed as hex (high bits ignored)
 ;   R4 -- bit counter
@@ -141,7 +138,7 @@ PRINT_HEX_DIGIT
 
 	; print low 8 bits of R3 as hexadecimal
 
-    ST R2,PRINT_HEX_DIGIT_R2	; Save registers
+	ST R2,PRINT_HEX_DIGIT_R2	; Save registers
 	ST R3,PRINT_HEX_DIGIT_R3	;
 	ST R4,PRINT_HEX_DIGIT_R4	;
 	ST R5,PRINT_HEX_DIGIT_R5	;
@@ -189,7 +186,7 @@ PRINT_DIGIT
 	ADD R6,R5,#-2		; printed both digits yet?
 	BRn DIG_LOOP		; if not, go print another
 
-    LD R2,PRINT_HEX_DIGIT_R2 ;restore register
+	LD R2,PRINT_HEX_DIGIT_R2 ;restore register
 	LD R3,PRINT_HEX_DIGIT_R3 ;
 	LD R4,PRINT_HEX_DIGIT_R4 ;
 	LD R5,PRINT_HEX_DIGIT_R5 ;
@@ -199,15 +196,14 @@ PRINT_DIGIT
 	RET
 
 	; data for PRINT_HEX subroutine
-PRINT_HEX_DIGIT_R2	.BLKW #1 ;avoid changing register
-PRINT_HEX_DIGIT_R3	.BLKW #1		
-PRINT_HEX_DIGIT_R4	.BLKW #1
-PRINT_HEX_DIGIT_R5	.BLKW #1
-PRINT_HEX_DIGIT_R6	.BLKW #1
-PRINT_HEX_DIGIT_R7	.BLKW #1
-ASC_ZERO	.FILL x0030	; ASCII '0'
-ASC_HIGH	.FILL x0037	; ASCII 'A' - 10
-
+	PRINT_HEX_DIGIT_R2	.BLKW #1 ;avoid changing register
+	PRINT_HEX_DIGIT_R3	.BLKW #1		
+	PRINT_HEX_DIGIT_R4	.BLKW #1
+	PRINT_HEX_DIGIT_R5	.BLKW #1
+	PRINT_HEX_DIGIT_R6	.BLKW #1
+	PRINT_HEX_DIGIT_R7	.BLKW #1
+	ASC_ZERO	.FILL x0030	; ASCII '0'
+	ASC_HIGH	.FILL x0037	; ASCII 'A' - 10
 
 ;
 ; Subroutine PRINT_CHAR
@@ -223,8 +219,8 @@ ASC_HIGH	.FILL x0037	; ASCII 'A' - 10
 	;; DSR[15]=1, ready
 
 PRINT_CHAR
-	ST	R0,PRINT_CHAR_R0	; callee-save pre contents of R0 to memery, R0 is used for checking the DSR
-	ST	R7,PRINT_CHAR_R7	; callee-save pre contents of R7 to memory, R7 will be overwritten by JSR
+	ST R0,PRINT_CHAR_R0	; callee-save pre contents of R0 to memery, R0 is used for checking the DSR
+	ST R7,PRINT_CHAR_R7	; callee-save pre contents of R7 to memory, R7 will be overwritten by JSR
 
 POLL_DSR
 	LDI R0,DSR		; R0<-mem[mem[DSR]]
@@ -236,15 +232,15 @@ POLL_DSR
 				;; mem[xFE04]
 				;; store contents of DDR to R2
 	
-	LD	R0,PRINT_CHAR_R0	; restore R0 from memory
-	LD	R7,PRINT_CHAR_R7	; restore R7 from memory, because the code after the subroutine might require R7 to work properly
+	LD R0,PRINT_CHAR_R0	; restore R0 from memory
+	LD R7,PRINT_CHAR_R7	; restore R7 from memory, because the code after the subroutine might require R7 to work properly
 	RET
 
 	; data for PRINT_CHAR subroutine
-DSR	.FILL xFE04
-DDR	.FILL xFE06
-PRINT_CHAR_R0	.BLKW #1
-PRINT_CHAR_R7	.BLKW #1
+	DSR	.FILL xFE04	
+	DDR	.FILL xFE06
+	PRINT_CHAR_R0	.BLKW #1
+	PRINT_CHAR_R7	.BLKW #1
 
 	;; -----------PRINT_FOUR_HEX subroutine----------------
 
@@ -256,7 +252,7 @@ PRINT_FOUR_HEX
 	;; R5 is a loop counter
 
 	ST R2,PRINT_FOUR_HEX_R2	; save registers
-    ST R3,PRINT_FOUR_HEX_R3
+	ST R3,PRINT_FOUR_HEX_R3
 	ST R4,PRINT_FOUR_HEX_R4
 	ST R5,PRINT_FOUR_HEX_R5
 	ST R7,PRINT_FOUR_HEX_R7
@@ -284,13 +280,13 @@ PFHLOOP
 	LD R7,PRINT_FOUR_HEX_R7
 	RET
 	
-PRINT_FOUR_HEX_R2	.BLKW #1
-PRINT_FOUR_HEX_R3	.BLKW #1
-PRINT_FOUR_HEX_R4	.BLKW #1
-PRINT_FOUR_HEX_R5	.BLKW #1
-PRINT_FOUR_HEX_R7	.BLKW #1
+	PRINT_FOUR_HEX_R2	.BLKW #1
+	PRINT_FOUR_HEX_R3	.BLKW #1
+	PRINT_FOUR_HEX_R4	.BLKW #1
+	PRINT_FOUR_HEX_R5	.BLKW #1	
+	PRINT_FOUR_HEX_R7	.BLKW #1
 	
-SPACE	.FILL x20
+	SPACE	.FILL x20
 
 	; the directive below tells the assembler that the program is done
 	; (so do not write any code below it!)
