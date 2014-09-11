@@ -1,0 +1,2336 @@
+
+Welcome to the LC-3 simulator.
+
+The contents of the LC-3 tools distribution, including sources, management
+tools, and data, are Copyright (c) 2003 Steven S. Lumetta.
+
+The LC-3 tools distribution is free software covered by the GNU General
+Public License, and you are welcome to modify it and/or distribute copies
+of it under certain conditions.  The file COPYING (distributed with the
+tools) specifies those conditions.  There is absolutely no warranty for
+the LC-3 tools distribution, as described in the file NO_WARRANTY (also
+distributed with the tools).
+
+Have fun.
+
+
+--- halting the LC-3 ---
+
+PC=x0494 IR=xB1AE PSR=x0400 (ZERO)
+R0=x0000 R1=x7FFF R2=x0000 R3=x0000 R4=x0000 R5=x0000 R6=x0000 R7=x0490 
+                   x0494 x0FF9 BRNZP TRAP_HALT
+Loaded "chained-nf.obj" and set PC to x5000
+WARNING: No symbols are available.
+Loaded "prog3.obj" and set PC to x3000
+Wrote x0004 to address x0800.
+Will not use stdin for LC-3 console input during script execution.
+00 01 0E 11
+01 02 0B 00
+02 09 03 01
+03 04 05 02
+04 38 FF FF
+05 06 08 02
+06 07 08 02
+07 FF FF FF
+08 07 02 FF
+09 0A 02 FF
+0A 02 FF FF
+0B 01 0C 0D
+0C 37 FF FF
+0D FF FF FF
+0E 0F 00 10
+0F 0E FF FF
+10 0E FF FF
+11 13 00 12
+12 FF FF FF
+13 15 14 11
+14 29 FF FF
+15 3F FF FF
+16 17 24 27
+17 18 21 16
+18 1F 19 17
+19 1A 1B 18
+1A FF FF FF
+1B 1C 1E 18
+1C 1D 1E 18
+1D FF FF FF
+1E 48 44 FF
+1F 20 18 FF
+20 44 FF FF
+21 17 22 23
+22 21 FF FF
+23 FF FF FF
+24 25 16 26
+25 24 FF FF
+26 24 FF FF
+27 29 16 28
+28 FF FF FF
+29 2B 2A 27
+2A FF FF FF
+2B 69 FF FF
+2C 2D 3A 3D
+2D 2E 37 2C
+2E 35 2F 2D
+2F 30 31 2E
+30 FF FF FF
+31 32 34 2E
+32 33 34 2E
+33 FF FF FF
+34 33 2E FF
+35 36 2E FF
+36 2E FF FF
+37 2D 39 FF
+38 83 FF FF
+39 59 FF FF
+3A 3B 2C 3C
+3B 3A FF FF
+3C 3A FF FF
+3D 3F 2C 3E
+3E FF FF FF
+3F 41 40 3D
+40 69 FF FF
+41 FF FF FF
+42 43 50 53
+43 44 4D 42
+44 4B 45 43
+45 46 47 44
+46 FF FF FF
+47 48 4A 44
+48 49 4A 44
+49 FF FF FF
+4A 49 44 FF
+4B 44 FF FF
+4C 7A FF FF
+4D 43 4E 4F
+4E 79 FF FF
+4F FF FF FF
+50 51 42 52
+51 50 FF FF
+52 FF FF FF
+53 55 42 54
+54 FF FF FF
+55 53 FF FF
+56 72 FF FF
+57 82 FF FF
+58 59 66 69
+59 5A 63 58
+5A 61 5B 59
+5B 5A FF FF
+5C 78 FF FF
+5D 6D FF FF
+5E 5F 69 FF
+5F FF FF FF
+60 5F 69 FF
+61 5A FF FF
+62 64 FF FF
+63 59 65 FF
+64 4C FF FF
+65 FF FF FF
+66 67 58 68
+67 7C FF FF
+68 FF FF FF
+69 6B 58 6A
+6A 5E 60 69
+6B 69 FF FF
+6C 76 FF FF
+6D 6C FF FF
+6E 6F 7C 7F
+6F 70 79 6E
+70 77 71 6F
+71 74 FF FF
+72 5D FF FF
+73 FF FF FF
+74 75 73 FF
+75 FF FF FF
+76 00 01 02
+77 70 FF FF
+78 57 FF FF
+79 6F 65 FF
+7A 7B FF FF
+7B 56 FF FF
+7C 7D 6E 7E
+7D FF FF FF
+7E 7C FF FF
+7F 81 6E 80
+80 FF FF FF
+81 7F FF FF
+82 62 FF FF
+83 5C FF FF
+
+
+--- Starting adventure. ---
+
+
+Bein
+g  a
+brig
+ht
+ECE
+unde
+rgra
+duat
+e on
+the
+pres
+tigi
+ous
+UIUC
+camp
+us,
+you
+have
+deci
+ded
+to
+enro
+ll
+in
+ECE1
+98KL
+,
+subj
+ecti
+ng
+your
+self
+to
+slee
+p
+depr
+ivat
+ion
+and
+the
+debi
+lita
+ting
+effe
+cts
+of
+'Eng
+inee
+ring
+humo
+r'
+in
+sear
+ch
+of a
+deep
+er
+unde
+rsta
+ndin
+g of
+comp
+uter
+s
+and
+thei
+r
+desi
+gn.
+
+You
+stan
+d in
+the
+Bard
+een
+Quad
+.
+You
+stan
+d in
+the
+rain
+.
+Reca
+llin
+g
+that
+stan
+ding
+in
+the
+rain
+can
+make
+you
+sick
+,
+you
+brie
+fly
+cons
+ider
+tryi
+ng
+to
+get
+sick
+inst
+ead
+of
+fini
+shin
+g
+toni
+ght'
+s
+MP,
+but
+deci
+de
+to
+reta
+in
+that
+opti
+on
+for
+late
+r.
+
+You
+can
+(1)
+head
+into
+Ever
+itt,
+(2)
+wave
+to
+the
+Engi
+neer
+and
+ente
+r
+Grai
+nger
+, or
+(3)
+go
+down
+to
+Gree
+n
+Stre
+et.
+
+Please enter your choice: 1
+
+
+You
+stan
+d in
+the
+hall
+way
+of
+Ever
+itt
+Lab,
+at
+peac
+e
+with
+your
+self
+,
+thin
+king
+that
+ther
+e's
+no
+plac
+e
+like
+home
+.
+Fina
+lly,
+your
+reve
+rie
+shat
+ters
+as
+you
+reme
+mber
+that
+'hom
+e'
+isn'
+t
+nece
+ssar
+ily
+the
+plac
+e
+wher
+e
+you
+spen
+d
+five
+-six
+ths
+of
+your
+life
+.
+
+The
+lab
+beck
+ons
+from
+upst
+airs
+.
+Will
+you
+(1)
+heed
+its
+call
+and
+go
+upst
+airs
+,
+(2)
+head
+down
+to
+the
+vend
+ing
+mach
+ine
+for
+a
+pop,
+or
+(3)
+retu
+rn
+to
+the
+Bard
+een
+Quad
+for
+anot
+her
+day'
+s
+dose
+of
+fres
+h
+air?
+
+Please enter your choice: 2
+
+
+As
+alwa
+ys,
+the
+vend
+ing
+mach
+ines
+are
+near
+ly
+empt
+y.
+In
+fact
+,
+the
+soda
+mach
+ine
+IS
+empt
+y,
+but
+you
+spot
+a
+can
+of
+Dew
+on a
+near
+by
+tabl
+e,
+lost
+by
+some
+poor
+chum
+p.
+Ther
+e's
+also
+one
+cand
+y
+bar
+left
+;
+it's
+not
+your
+favo
+rite
+,
+but
+it's
+hard
+ly
+time
+to
+get
+pick
+y
+with
+only
+a
+coup
+le
+of
+hour
+s
+left
+for
+your
+MP.
+
+Will
+you
+(1)
+walk
+away
+from
+this
+gold
+en
+oppo
+rtun
+ity,
+(2)
+buy
+the
+bar,
+or
+(3)
+drin
+k
+the
+Dew
+and
+leav
+e
+the
+can
+for
+its
+owne
+r?
+
+Please enter your choice: 2
+
+
+You
+glan
+ce
+long
+ingl
+y at
+the
+Dew,
+then
+drop
+some
+coin
+s
+into
+the
+vend
+ing
+mach
+ine
+to
+get
+the
+cand
+y
+bar.
+
+Mmmm
+m...
+that
+tast
+es
+grea
+t.
+Ther
+e's
+noth
+ing
+like
+a
+bala
+nced
+,
+nutr
+itio
+nal
+meal
+from
+a
+vend
+ing
+mach
+ine.
+Beat
+s
+day-
+old
+pizz
+a
+any
+time
+!
+
+Unfo
+rtun
+atel
+y,
+you'
+re
+stil
+l  a
+bit
+grog
+gy.
+Pres
+s
+(1)
+to
+cont
+inue
+.
+
+Please enter your choice: 1
+
+
+As
+alwa
+ys,
+the
+vend
+ing
+mach
+ines
+are
+empt
+y.
+Fort
+unat
+ely,
+you
+spot
+a
+can
+of
+Dew
+on a
+near
+by
+tabl
+e,
+lost
+by
+some
+poor
+chum
+p.
+
+Will
+you
+(1)
+walk
+away
+from
+this
+gold
+en
+oppo
+rtun
+ity,
+or
+(2)
+slid
+e
+the
+Dew
+smoo
+thly
+into
+your
+bag?
+
+Please enter your choice: 2
+
+
+With
+unpr
+eced
+ente
+d
+grac
+e
+(for
+an
+Engi
+neee
+r,
+that
+is),
+you
+flic
+k
+your
+wris
+t
+near
+the
+can,
+caus
+ing
+it
+to
+topp
+le
+over
+into
+your
+bag.
+Peer
+ing
+abou
+t
+quic
+kly
+with
+a
+faux
+mask
+of
+surp
+rise
+,
+you
+hide
+the
+evid
+ence
+and
+move
+quic
+kly
+to
+the
+stai
+rs.
+
+Pres
+s
+(1)
+to
+retu
+rn
+to
+the
+next
+floo
+r.
+
+Please enter your choice: 1
+
+
+You
+stan
+d in
+the
+hall
+way
+of
+Ever
+itt
+Lab,
+at
+peac
+e
+with
+your
+self
+,
+thin
+king
+that
+ther
+e's
+no
+plac
+e
+like
+home
+.
+Fina
+lly,
+your
+reve
+rie
+shat
+ters
+as
+you
+reme
+mber
+that
+'hom
+e'
+isn'
+t
+nece
+ssar
+ily
+the
+plac
+e
+wher
+e
+you
+spen
+d
+five
+-six
+ths
+of
+your
+life
+.
+
+The
+lab
+beck
+ons
+from
+upst
+airs
+.
+Will
+you
+(1)
+heed
+its
+call
+and
+go
+upst
+airs
+,
+(2)
+head
+down
+to
+the
+vend
+ing
+mach
+ine
+for
+a
+pop,
+or
+(3)
+retu
+rn
+to
+the
+Bard
+een
+Quad
+for
+anot
+her
+day'
+s
+dose
+of
+fres
+h
+air?
+
+Please enter your choice: 3
+
+
+You
+stan
+d in
+the
+Bard
+een
+Quad
+.
+You
+stan
+d in
+the
+rain
+.
+You
+are
+well
+fed
+and
+wide
+awak
+e,
+but
+you
+thir
+st
+for
+know
+ledg
+e.
+Wher
+e
+will
+you
+find
+it?
+Sure
+ly
+you
+need
+it
+to
+comp
+lete
+the
+MP
+in
+time
+!
+
+You
+can
+(1)
+head
+into
+Ever
+itt,
+(2)
+wave
+to
+the
+Engi
+neer
+and
+ente
+r
+Grai
+nger
+, or
+(3)
+go
+down
+to
+Gree
+n
+Stre
+et.
+
+Please enter your choice: 3
+
+
+Why
+are
+you
+poki
+ng
+arou
+nd
+Camp
+usto
+wn
+inst
+ead
+of
+work
+ing
+on
+your
+MP?
+Don'
+t
+you
+have
+any
+sens
+e of
+prio
+rity
+?
+Get
+back
+to
+work
+!
+You
+can
+craw
+l
+late
+r
+toni
+ght.
+Besi
+des,
+you
+can'
+t
+craw
+l
+here
+with
+out
+a
+car,
+and
+you
+can'
+t
+have
+a
+car
+if
+you'
+re
+craw
+ling
+...s
+omet
+hing
+like
+that
+,
+anyw
+ay.
+
+Pres
+s
+(1)
+to
+head
+towa
+rds
+Za's
+for
+some
+refr
+eshm
+ent,
+(2)
+to
+retu
+rn
+to
+the
+Bard
+een
+Quad
+, or
+(3)
+to
+head
+home
+and
+log
+in.
+
+Please enter your choice: 3
+
+
+You
+head
+home
+and
+log
+in
+to
+rems
+un1.
+
+Will
+you
+(1)
+work
+on
+your
+MP,
+(2)
+read
+the
+Web
+Boar
+d,
+or
+(3)
+log
+out
+and
+go
+back
+to
+Gree
+n
+Stre
+et?
+
+Please enter your choice: 2
+
+
+
+You
+read
+the
+post
+s.
+You
+writ
+e
+some
+your
+self
+.
+The
+answ
+ers
+are
+vagu
+e,
+the
+know
+ledg
+e is
+nebu
+lous
+,
+the
+poin
+t is
+dull
+.
+You
+cont
+empl
+ate
+ways
+in
+whic
+h
+you
+can
+shar
+pen
+your
+wit
+and
+your
+wisd
+om.
+A
+good
+cubi
+cle
+is
+what
+you
+need
+.
+The
+Hall
+s of
+Grai
+nger
+spri
+ng
+to
+mind
+.
+
+Do
+you
+(1)
+take
+a
+shot
+at
+the
+MP,
+or
+(2)
+head
+out
+to
+Gree
+n
+Stre
+et?
+
+Please enter your choice: 2
+
+
+Why
+are
+you
+poki
+ng
+arou
+nd
+Camp
+usto
+wn
+inst
+ead
+of
+work
+ing
+on
+your
+MP?
+Don'
+t
+you
+have
+any
+sens
+e of
+prio
+rity
+?
+Get
+back
+to
+work
+!
+You
+can
+craw
+l
+late
+r
+toni
+ght.
+Besi
+des,
+you
+can'
+t
+craw
+l
+here
+with
+out
+a
+car,
+and
+you
+can'
+t
+have
+a
+car
+if
+you'
+re
+craw
+ling
+...s
+omet
+hing
+like
+that
+,
+anyw
+ay.
+
+Pres
+s
+(1)
+to
+head
+towa
+rds
+Za's
+for
+some
+refr
+eshm
+ent,
+(2)
+to
+retu
+rn
+to
+the
+Bard
+een
+Quad
+, or
+(3)
+to
+head
+home
+and
+log
+in.
+
+Please enter your choice: 2
+
+
+You
+stan
+d in
+the
+Bard
+een
+Quad
+.
+You
+stan
+d in
+the
+rain
+.
+You
+are
+well
+fed
+and
+wide
+awak
+e,
+but
+you
+thir
+st
+for
+know
+ledg
+e.
+Wher
+e
+will
+you
+find
+it?
+Sure
+ly
+you
+need
+it
+to
+comp
+lete
+the
+MP
+in
+time
+!
+
+You
+can
+(1)
+head
+into
+Ever
+itt,
+(2)
+wave
+to
+the
+Engi
+neer
+and
+ente
+r
+Grai
+nger
+, or
+(3)
+go
+down
+to
+Gree
+n
+Stre
+et.
+
+Please enter your choice: 2
+
+
+Noth
+ing
+brac
+es
+the
+Engi
+neer
+like
+the
+arom
+a of
+a
+good
+cubi
+cle,
+and
+Grai
+nger
+is
+choc
+k
+full
+of
+them
+. Of
+cour
+se,
+stud
+y
+carr
+els
+aren
+'t
+quit
+e as
+arom
+atic
+as
+some
+thin
+g in
+Stan
+dard
+Grey
+,
+but
+it's
+the
+clos
+est
+thin
+g
+that
+you
+can
+find
+on
+camp
+us.
+
+You
+spot
+a
+free
+stud
+y
+carr
+el.
+Will
+you
+(1)
+sit
+down
+to
+read
+the
+book
+, or
+(2)
+head
+sout
+h to
+imit
+ate
+the
+Engi
+neer
+, or
+(3)
+cont
+inue
+to
+the
+Nort
+h in
+the
+hope
+of
+find
+ing
+Lume
+tta
+hims
+elf?
+
+Please enter your choice: 1
+
+
+You
+sett
+le
+your
+self
+into
+the
+carr
+el
+and
+begi
+n to
+read
+.
+Caff
+eine
+and
+a
+full
+stom
+ach
+comb
+ine
+with
+your
+natu
+ral
+brai
+npow
+er,
+enab
+ling
+you
+to
+fina
+lly
+grok
+the
+goal
+s of
+MP2.
+Bask
+ing
+in
+your
+epip
+hany
+,
+you
+easi
+ly
+plan
+your
+cour
+se
+of
+acti
+on.
+
+Pres
+s
+(1)
+to
+emba
+rk
+on
+the
+next
+day
+of
+the
+rest
+of
+your
+life
+, or
+at
+leas
+t
+the
+rest
+of
+the
+time
+befo
+re
+you
+turn
+in
+the
+MP.
+Sadl
+y,
+you
+will
+have
+to
+leav
+e
+this
+litt
+le
+virt
+ual
+worl
+d
+afte
+r
+you
+fini
+sh
+your
+MP,
+but
+that
+'s
+anot
+her
+stor
+y.
+
+Please enter your choice: 1
+
+
+Noth
+ing
+brac
+es
+the
+Engi
+neer
+like
+the
+arom
+a of
+a
+good
+cubi
+cle,
+and
+Grai
+nger
+is
+choc
+k
+full
+of
+them
+. Of
+cour
+se,
+stud
+y
+carr
+els
+aren
+'t
+quit
+e as
+arom
+atic
+as
+some
+thin
+g in
+Stan
+dard
+Grey
+,
+but
+it's
+the
+clos
+est
+thin
+g
+that
+you
+can
+find
+on
+camp
+us.
+
+You
+spot
+a
+free
+stud
+y
+carr
+el.
+Will
+you
+(1)
+sit
+down
+to
+read
+the
+book
+, or
+(2)
+head
+sout
+h to
+imit
+ate
+the
+Engi
+neer
+, or
+(3)
+cont
+inue
+to
+the
+Nort
+h in
+the
+hope
+of
+find
+ing
+Lume
+tta
+hims
+elf?
+
+Please enter your choice: 2
+
+
+You
+stan
+d in
+the
+Bard
+een
+Quad
+,
+read
+y
+for
+anyt
+hing
+,
+incl
+udin
+g
+your
+MP.
+
+You
+can
+(1)
+head
+into
+Ever
+itt,
+(2)
+wave
+to
+the
+Engi
+neer
+and
+ente
+r
+Grai
+nger
+, or
+(3)
+go
+down
+to
+Gree
+n
+Stre
+et.
+
+Please enter your choice: 1
+
+
+You
+stan
+d in
+the
+hall
+way
+of
+Ever
+itt
+Lab,
+eage
+r to
+begi
+n
+your
+MP.
+
+The
+lab
+beck
+ons
+from
+upst
+airs
+.
+Will
+you
+(1)
+heed
+its
+call
+and
+go
+upst
+airs
+,
+(2)
+head
+down
+to
+the
+vend
+ing
+mach
+ine
+for
+a
+pop,
+or
+(3)
+retu
+rn
+to
+the
+Bard
+een
+Quad
+for
+anot
+her
+day'
+s
+dose
+of
+fres
+h
+air?
+
+Please enter your choice: 1
+
+
+The
+seco
+nd-f
+loor
+hall
+way
+of
+Ever
+itt
+teem
+s
+with
+life
+,
+but
+what
+is
+life
+comp
+ared
+with
+the
+crea
+tion
+of
+an
+MP?
+You
+know
+that
+you
+are
+read
+y.
+
+The
+TAs
+offi
+ce
+is
+upst
+airs
+,
+but
+the
+TAs
+seem
+to
+have
+gone
+home
+for
+the
+even
+ing.
+The
+lab
+is
+also
+open
+.
+
+Will
+you
+(1)
+look
+for
+a
+TA,
+(2)
+ente
+r
+the
+lab,
+or
+(3)
+head
+down
+stai
+rs?
+
+Please enter your choice: 1
+
+
+Have
+some
+conf
+iden
+ce!
+Get
+to
+work
+!
+The
+TAs
+are
+gone
+for
+the
+nigh
+t
+anyw
+ay.
+
+Pres
+s
+(1)
+to
+retu
+rn
+to
+the
+seco
+nd
+floo
+r.
+
+Please enter your choice: 1
+
+
+The
+seco
+nd-f
+loor
+hall
+way
+of
+Ever
+itt
+teem
+s
+with
+life
+,
+but
+what
+is
+life
+comp
+ared
+with
+the
+crea
+tion
+of
+an
+MP?
+You
+know
+that
+you
+are
+read
+y.
+
+The
+TAs
+offi
+ce
+is
+upst
+airs
+,
+but
+the
+TAs
+seem
+to
+have
+gone
+home
+for
+the
+even
+ing.
+The
+lab
+is
+also
+open
+.
+
+Will
+you
+(1)
+look
+for
+a
+TA,
+(2)
+ente
+r
+the
+lab,
+or
+(3)
+head
+down
+stai
+rs?
+
+Please enter your choice: 2
+
+
+Tens
+ion
+in
+the
+lab
+has
+rise
+n to
+a
+feve
+red
+pitc
+h.
+Sudd
+enly
+,  a
+reso
+undi
+ng
+slap
+anno
+unce
+s
+the
+star
+t of
+anot
+her
+duel
+over
+mach
+ines
+.
+Pist
+ols
+at
+thir
+ty
+pace
+s.
+They
+won'
+t
+need
+that
+mach
+ine
+for
+a
+whil
+e!
+You
+quic
+kly
+step
+up
+to
+the
+keyb
+oard
+.
+
+Pres
+s
+(1)
+to
+star
+t
+your
+MP.
+
+Please enter your choice: 1
+
+
+You
+quic
+kly
+whip
+toge
+ther
+a
+beau
+tifu
+l
+flow
+char
+t
+for
+your
+desi
+gn,
+then
+writ
+e  a
+stun
+ning
+ly
+eloq
+uent
+para
+grap
+h
+inti
+mati
+ng
+your
+inve
+ntiv
+e
+and
+mast
+erfu
+l
+appr
+oach
+for
+the
+bene
+fit
+of
+the
+staf
+f as
+well
+as
+your
+inev
+itab
+ly
+perf
+ect
+grad
+e.
+
+Pres
+s
+(1)
+to
+pres
+s
+thro
+ugh
+to
+the
+fini
+sh,
+or
+(2)
+to
+brea
+k
+off
+for
+a
+snac
+k.
+
+Please enter your choice: 1
+
+
+
+----
+----
+----
+----
+----
+----
+--
+CONG
+RATU
+LATI
+ONS!
+----
+----
+----
+----
+----
+----
+--
+
+You
+have
+beat
+en
+the
+syst
+em
+and
+comp
+lete
+d
+MP2
+with
+a
+perf
+ect
+scor
+e!
+
+Now
+if
+only
+this
+coul
+d be
+the
+real
+worl
+d...
+good
+luck
+!
+
+
+
+--- Ending adventure. ---
+
+
+
+--- halting the LC-3 ---
+
+PC=x0494 IR=xB1AE PSR=x0400 (ZERO)
+R0=x0000 R1=x7FFF R2=x0000 R3=x41D1 R4=x41D4 R5=x0003 R6=x0075 R7=x0490 
+                   x0494 x0FF9 BRNZP TRAP_HALT
+3FFC: 0000 0000 0000 0000 5000 0001 000E 0011 5263 0002 000B 0000  ............
+4008: 541A 0009 0003 0001 55D2 0004 0005 0002 571D 0038 FFFF FFFF  .........8..
+4014: 58C0 0006 0008 0002 5A9F 0007 0008 0002 5C24 FFFF FFFF FFFF  ............
+4020: 5D92 0007 0002 FFFF 5F05 000A 0002 FFFF 6053 0002 FFFF FFFF  ............
+402C: 6158 0001 000C 000D 6302 0037 FFFF FFFF 6438 FFFF FFFF FFFF  .....7......
+4038: 668C 000F 0000 0010 6800 000E FFFF FFFF 693E 000E FFFF FFFF  ............
+4044: 6B14 0013 0000 0012 6D48 FFFF FFFF FFFF 6EF3 0015 0014 0011  ............
+4050: 6FC4 0029 FFFF FFFF 710B 003F FFFF FFFF 7271 0017 0024 0027  .)...?....$'
+405C: 73D8 0018 0021 0016 758F 001F 0019 0017 7747 001A 001B 0018  ..!.........
+4068: 78DB FFFF FFFF FFFF 7B25 001C 001E 0018 7CEC 001D 001E 0018  ............
+4074: 7E42 FFFF FFFF FFFF 7F31 0048 0044 FFFF 8143 0020 0018 FFFF  .....HD.. ..
+4080: 8291 0044 FFFF FFFF 83D5 0017 0022 0023 857F 0021 FFFF FFFF  .D...."#.!..
+408C: 86B2 FFFF FFFF FFFF 8809 0025 0016 0026 897D 0024 FFFF FFFF  .....%.&.$..
+4098: 8AB1 0024 FFFF FFFF 8C68 0029 0016 0028 8E9C FFFF FFFF FFFF  .$...).(....
+40A4: 8F5B 002B 002A 0027 9033 FFFF FFFF FFFF 9176 0069 FFFF FFFF  .+*'.....i..
+40B0: 92B7 002D 003A 003D 9447 002E 0037 002C 95FE 0035 002F 002D  .-:=..7,.5/-
+40BC: 9812 0030 0031 002E 99A6 FFFF FFFF FFFF 9BF0 0032 0034 002E  .01......24.
+40C8: 9E14 0033 0034 002E 9F65 FFFF FFFF FFFF A0F2 0033 002E FFFF  .34......3..
+40D4: A275 0036 002E FFFF A3C3 002E FFFF FFFF A518 002D 0039 FFFF  .6.......-9.
+40E0: A5FE 0083 FFFF FFFF A603 0059 FFFF FFFF A71E 003B 002C 003C  .....Y...;,<
+40EC: A892 003A FFFF FFFF A9C5 003A FFFF FFFF AC18 003F 002C 003E  .:...:...?,>
+40F8: AE4C FFFF FFFF FFFF AF0C 0041 0040 003D AFF0 0069 FFFF FFFF  .....A@=.i..
+4104: B0FB FFFF FFFF FFFF B1E1 0043 0050 0053 B33C 0044 004D 0042  .....CPS.DMB
+4110: B4F3 004B 0045 0043 B6D3 0046 0047 0044 B8DA FFFF FFFF FFFF  .KEC.FGD....
+411C: BABF 0048 004A 0044 BC8D 0049 004A 0044 BDC9 FFFF FFFF FFFF  .HJD.IJD....
+4128: BFE0 0049 0044 FFFF C164 0044 FFFF FFFF C285 007A FFFF FFFF  .ID..D...z..
+4134: C28A 0043 004E 004F C434 0079 FFFF FFFF C520 FFFF FFFF FFFF  .CNO.y......
+4140: C658 0051 0042 0052 C7CC 0050 FFFF FFFF C98C FFFF FFFF FFFF  .QBR.P......
+414C: CC69 0055 0042 0054 CE11 FFFF FFFF FFFF CF63 0053 FFFF FFFF  .UBT.....S..
+4158: CFE2 0072 FFFF FFFF CFE7 0082 FFFF FFFF CFEC 0059 0066 0069  .r.......Yfi
+4164: D11F 005A 0063 0058 D2D6 0061 005B 0059 D425 005A FFFF FFFF  .ZcX.a[Y.Z..
+4170: D501 0078 FFFF FFFF D506 006D FFFF FFFF D50B 005F 0069 FFFF  .x...m..._i.
+417C: D6C0 FFFF FFFF FFFF D7DD 005F 0069 FFFF D930 005A FFFF FFFF  ....._i..Z..
+4188: D9C1 0064 FFFF FFFF D9C6 0059 0065 FFFF DAE8 004C FFFF FFFF  .d...Ye..L..
+4194: DAED FFFF FFFF FFFF DDD6 0067 0058 0068 DF80 007C FFFF FFFF  .....gXh.|..
+41A0: E159 FFFF FFFF FFFF E46A 006B 0058 006A E600 005E 0060 0069  .....kXj.^`i
+41AC: E690 0069 FFFF FFFF E70F 0076 FFFF FFFF E714 006C FFFF FFFF  .i...v...l..
+41B8: E719 006F 007C 007F E7D2 0070 0079 006E E8DD 0077 0071 006F  .o|..pyn.wqo
+41C4: EA1C 0074 FFFF FFFF EB2B 005D FFFF FFFF EB30 FFFF FFFF FFFF  .t...]......
+41D0: EBC3 0075 0073 FFFF ECFA FFFF FFFF FFFF EDC3 0000 0001 0002  .us.........
+41DC: EDC8 0070 FFFF FFFF EE44 0057 FFFF FFFF EE49 006F 0065 FFFF  .p...W...oe.
+41E8: EF5C 007B FFFF FFFF EF61 0056 FFFF FFFF EF66 007D 006E 007E  .{...V...}n~
+41F4: F110 FFFF FFFF FFFF F29F 007C FFFF FFFF F463 0081 006E 0080  .....|....n.
+4200: F600 FFFF FFFF FFFF F6A2 007F FFFF FFFF F721 0062 FFFF FFFF  .........b..
+420C: F726 005C FFFF FFFF 0000 0000 0000 0000 0000 0000 0000 0000  .\..........
+4218: 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000  ............
+4224: 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000  ............

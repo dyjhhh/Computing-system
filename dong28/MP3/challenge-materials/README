@@ -1,0 +1,27 @@
+NOTE: Tests of the challenges are somewhat independent, but the word
+      count that you pick for one line with justification should be the
+      same as what you pick without justification (that's why it says
+      that the wrapping is required for justification).
+
+      Be sure to turn off path printing, if you did it last week, or
+      your outputs will not match.
+
+Explanations of the files in this directory:
+
+undo testing uses chained.obj in case you implemented reachability
+  runundo - a test that exercises the undo command
+  undoout - results for runundo (with undo challenge implemented);
+            note the standard invalid command string when no undo is possible
+
+chained-nf.obj - a fully reachable version of surreal with no linefeeds
+              in the text other than to mark paragraphs; for use with
+	      testing word-wrapping and justification
+  runwrapone - run with wrapping turned off (M[0x800 = 0])
+  runwraptwo - run with wrapping at 64 characters
+  runwrapthree - run with wrapping at 4 characters
+  wraponeout - results for runwrapone (with or without wrapping challenge)
+  wraptwoout - results for runwraptwo (with wrapping challenge)
+  wrapthreeout - results for runwrapthree (with wrapping challenge)
+  justoneout - results for runwrapone (with or without justification challenge)
+  justthreeout - results for runwraptwo (with justification challenge)
+  justtwoout - results for runwrapthree (with justification challenge)
