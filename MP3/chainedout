@@ -1,0 +1,476 @@
+
+Welcome to the LC-3 simulator.
+
+The contents of the LC-3 tools distribution, including sources, management
+tools, and data, are Copyright (c) 2003 Steven S. Lumetta.
+
+The LC-3 tools distribution is free software covered by the GNU General
+Public License, and you are welcome to modify it and/or distribute copies
+of it under certain conditions.  The file COPYING (distributed with the
+tools) specifies those conditions.  There is absolutely no warranty for
+the LC-3 tools distribution, as described in the file NO_WARRANTY (also
+distributed with the tools).
+
+Have fun.
+
+
+--- halting the LC-3 ---
+
+PC=x0494 IR=xB1AE PSR=x0400 (ZERO)
+R0=x0000 R1=x7FFF R2=x0000 R3=x0000 R4=x0000 R5=x0000 R6=x0000 R7=x0490 
+                   x0494 x0FF9 BRNZP TRAP_HALT
+Loaded "chained.obj" and set PC to x5000
+WARNING: No symbols are available.
+Loaded "prog3.obj" and set PC to x3000
+Will not use stdin for LC-3 console input during script execution.
+00 01 0E 11
+01 02 0B 00
+02 09 03 01
+03 04 05 02
+04 38 FF FF
+05 06 08 02
+06 07 08 02
+07 FF FF FF
+08 07 02 FF
+09 0A 02 FF
+0A 02 FF FF
+0B 01 0C 0D
+0C 37 FF FF
+0D FF FF FF
+0E 0F 00 10
+0F 0E FF FF
+10 0E FF FF
+11 13 00 12
+12 FF FF FF
+13 15 14 11
+14 29 FF FF
+15 3F FF FF
+16 17 24 27
+17 18 21 16
+18 1F 19 17
+19 1A 1B 18
+1A FF FF FF
+1B 1C 1E 18
+1C 1D 1E 18
+1D FF FF FF
+1E 48 44 FF
+1F 20 18 FF
+20 44 FF FF
+21 17 22 23
+22 21 FF FF
+23 FF FF FF
+24 25 16 26
+25 24 FF FF
+26 24 FF FF
+27 29 16 28
+28 FF FF FF
+29 2B 2A 27
+2A FF FF FF
+2B 69 FF FF
+2C 2D 3A 3D
+2D 2E 37 2C
+2E 35 2F 2D
+2F 30 31 2E
+30 FF FF FF
+31 32 34 2E
+32 33 34 2E
+33 FF FF FF
+34 33 2E FF
+35 36 2E FF
+36 2E FF FF
+37 2D 39 FF
+38 83 FF FF
+39 59 FF FF
+3A 3B 2C 3C
+3B 3A FF FF
+3C 3A FF FF
+3D 3F 2C 3E
+3E FF FF FF
+3F 41 40 3D
+40 69 FF FF
+41 FF FF FF
+42 43 50 53
+43 44 4D 42
+44 4B 45 43
+45 46 47 44
+46 FF FF FF
+47 48 4A 44
+48 49 4A 44
+49 FF FF FF
+4A 49 44 FF
+4B 44 FF FF
+4C 7A FF FF
+4D 43 4E 4F
+4E 79 FF FF
+4F FF FF FF
+50 51 42 52
+51 50 FF FF
+52 FF FF FF
+53 55 42 54
+54 FF FF FF
+55 53 FF FF
+56 72 FF FF
+57 82 FF FF
+58 59 66 69
+59 5A 63 58
+5A 61 5B 59
+5B 5A FF FF
+5C 78 FF FF
+5D 6D FF FF
+5E 5F 69 FF
+5F FF FF FF
+60 5F 69 FF
+61 5A FF FF
+62 64 FF FF
+63 59 65 FF
+64 4C FF FF
+65 FF FF FF
+66 67 58 68
+67 7C FF FF
+68 FF FF FF
+69 6B 58 6A
+6A 5E 60 69
+6B 69 FF FF
+6C 76 FF FF
+6D 6C FF FF
+6E 6F 7C 7F
+6F 70 79 6E
+70 77 71 6F
+71 74 FF FF
+72 5D FF FF
+73 FF FF FF
+74 75 73 FF
+75 FF FF FF
+76 00 01 02
+77 70 FF FF
+78 57 FF FF
+79 6F 65 FF
+7A 7B FF FF
+7B 56 FF FF
+7C 7D 6E 7E
+7D FF FF FF
+7E 7C FF FF
+7F 81 6E 80
+80 FF FF FF
+81 7F FF FF
+82 62 FF FF
+83 5C FF FF
+
+
+--- Starting adventure. ---
+
+
+Being a bright ECE undergraduate on the prestigious UIUC campus, you have
+decided to enroll in ECE198KL, subjecting yourself to sleep deprivation 
+and the debilitating effects of 'Engineering humor' in search of a deeper
+understanding of computers and their design.
+
+You stand in the Bardeen Quad.  You stand in the rain.  Recalling that
+standing in the rain can make you sick, you briefly consider trying to 
+get sick instead of finishing tonight's MP, but decide to retain that
+option for later.
+
+You can (1) head into Everitt, (2) wave to the Engineer and enter Grainger,
+or (3) go down to Green Street.
+
+Please enter your choice: 1
+
+
+You stand in the hallway of Everitt Lab, at peace with yourself, thinking
+that there's no place like home.  Finally, your reverie shatters as you 
+remember that 'home' isn't necessarily the place where you spend 
+five-sixths of your life.
+
+The lab beckons from upstairs.  Will you (1) heed its call and go upstairs,
+(2) head down to the vending machine for a pop, or (3) return to the
+Bardeen Quad for another day's dose of fresh air?
+
+Please enter your choice: 2
+
+
+As always, the vending machines are nearly empty.  In fact, the soda
+machine IS empty, but you spot a can of Dew on a nearby table, lost
+by some poor chump.  There's also one candy bar left; it's not your
+favorite, but it's hardly time to get picky with only a couple of
+hours left for your MP.
+
+Will you (1) walk away from this golden opportunity, (2) buy the
+bar, or (3) drink the Dew and leave the can for its owner?
+
+Please enter your choice: 2
+
+
+You glance longingly at the Dew, then drop some coins into the vending
+machine to get the candy bar.  
+
+Mmmmm...that tastes great.  There's nothing like a balanced, 
+nutritional meal from a vending machine.  Beats day-old pizza
+any time!
+
+Unfortunately, you're still a bit groggy.  Press (1) to continue.
+
+Please enter your choice: 1
+
+
+As always, the vending machines are empty.  Fortunately, you spot
+a can of Dew on a nearby table, lost by some poor chump.  
+
+Will you (1) walk away from this golden opportunity, or (2) slide the
+Dew smoothly into your bag?
+
+Please enter your choice: 2
+
+
+With unprecedented grace (for an Engineeer, that is), you flick your
+wrist near the can, causing it to topple over into your bag.  Peering
+about quickly with a faux mask of surprise, you hide the evidence
+and move quickly to the stairs.
+
+Press (1) to return to the next floor.
+
+Please enter your choice: 1
+
+
+You stand in the hallway of Everitt Lab, at peace with yourself, thinking
+that there's no place like home.  Finally, your reverie shatters as you 
+remember that 'home' isn't necessarily the place where you spend 
+five-sixths of your life.
+
+The lab beckons from upstairs.  Will you (1) heed its call and go upstairs,
+(2) head down to the vending machine for a pop, or (3) return to the
+Bardeen Quad for another day's dose of fresh air?
+
+Please enter your choice: 3
+
+
+You stand in the Bardeen Quad.  You stand in the rain.  You are well fed
+and wide awake, but you thirst for knowledge.  Where will you find it?
+Surely you need it to complete the MP in time!
+
+You can (1) head into Everitt, (2) wave to the Engineer and enter Grainger,
+or (3) go down to Green Street.
+
+Please enter your choice: 3
+
+
+Why are you poking around Campustown instead of working on your MP?
+Don't you have any sense of priority?  Get back to work!  You can
+crawl later tonight.  Besides, you can't crawl here without a car, and
+you can't have a car if you're crawling...something like that, anyway.
+
+Press (1) to head towards Za's for some refreshment, (2) to return to 
+the Bardeen Quad, or (3) to head home and log in.
+
+Please enter your choice: 3
+
+
+You head home and log in to remsun1.  
+
+Will you (1) work on your MP, (2) read the Web Board, or 
+(3) log out and go back to Green Street?
+
+Please enter your choice: 2
+
+
+
+You read the posts.  You write some yourself.  The answers are vague,
+the knowledge is nebulous, the point is dull.  You contemplate ways
+in which you can sharpen your wit and your wisdom.  A good cubicle
+is what you need.  The Halls of Grainger spring to mind.
+
+Do you (1) take a shot at the MP, or (2) head out to Green Street?
+
+Please enter your choice: 2
+
+
+Why are you poking around Campustown instead of working on your MP?
+Don't you have any sense of priority?  Get back to work!  You can
+crawl later tonight.  Besides, you can't crawl here without a car, and
+you can't have a car if you're crawling...something like that, anyway.
+
+Press (1) to head towards Za's for some refreshment, (2) to return to 
+the Bardeen Quad, or (3) to head home and log in.
+
+Please enter your choice: 2
+
+
+You stand in the Bardeen Quad.  You stand in the rain.  You are well fed
+and wide awake, but you thirst for knowledge.  Where will you find it?
+Surely you need it to complete the MP in time!
+
+You can (1) head into Everitt, (2) wave to the Engineer and enter Grainger,
+or (3) go down to Green Street.
+
+Please enter your choice: 2
+
+
+Nothing braces the Engineer like the aroma of a good cubicle, and Grainger
+is chock full of them.  Of course, study carrels aren't quite as aromatic
+as something in Standard Grey, but it's the closest thing that you can
+find on campus.
+
+You spot a free study carrel.  Will you (1) sit down to read the book, or
+(2) head south to imitate the Engineer, or (3) continue to the North in the
+hope of finding Lumetta himself?
+
+Please enter your choice: 1
+
+
+You settle yourself into the carrel and begin to read.  Caffeine and a full
+stomach combine with your natural brainpower, enabling you to finally grok
+the goals of MP2.  Basking in your epiphany, you easily plan your course
+of action.
+
+Press (1) to embark on the next day of the rest of your life, or at least
+the rest of the time before you turn in the MP.  Sadly, you will have to
+leave this little virtual world after you finish your MP, but that's another
+story.
+
+Please enter your choice: 1
+
+
+Nothing braces the Engineer like the aroma of a good cubicle, and Grainger
+is chock full of them.  Of course, study carrels aren't quite as aromatic
+as something in Standard Grey, but it's the closest thing that you can
+find on campus.
+
+You spot a free study carrel.  Will you (1) sit down to read the book, or
+(2) head south to imitate the Engineer, or (3) continue to the North in the
+hope of finding Lumetta himself?
+
+Please enter your choice: 2
+
+
+You stand in the Bardeen Quad, ready for anything, including your MP.
+
+You can (1) head into Everitt, (2) wave to the Engineer and enter Grainger,
+or (3) go down to Green Street.
+
+Please enter your choice: 1
+
+
+You stand in the hallway of Everitt Lab, eager to begin your MP.
+
+The lab beckons from upstairs.  Will you (1) heed its call and go upstairs,
+(2) head down to the vending machine for a pop, or (3) return to the
+Bardeen Quad for another day's dose of fresh air?
+
+Please enter your choice: 1
+
+
+The second-floor hallway of Everitt teems with life, but what is life
+compared with the creation of an MP?  You know that you are ready.
+
+The TAs office is upstairs, but the TAs seem to have gone home for the
+evening.  The lab is also open.
+
+Will you (1) look for a TA, (2) enter the lab, or (3) head downstairs?
+
+Please enter your choice: 1
+
+
+Have some confidence!  Get to work!  The TAs are gone for the night 
+anyway.
+
+Press (1) to return to the second floor.
+
+Please enter your choice: 1
+
+
+The second-floor hallway of Everitt teems with life, but what is life
+compared with the creation of an MP?  You know that you are ready.
+
+The TAs office is upstairs, but the TAs seem to have gone home for the
+evening.  The lab is also open.
+
+Will you (1) look for a TA, (2) enter the lab, or (3) head downstairs?
+
+Please enter your choice: 2
+
+
+Tension in the lab has risen to a fevered pitch.  Suddenly, a resounding
+slap announces the start of another duel over machines.  Pistols at 
+thirty paces.  They won't need that machine for a while!  You quickly
+step up to the keyboard.
+
+Press (1) to start your MP.
+
+Please enter your choice: 1
+
+
+You quickly whip together a beautiful flow chart for your design,
+then write a stunningly eloquent paragraph intimating your inventive
+and masterful approach for the benefit of the staff as well as your
+inevitably perfect grade.
+
+Press (1) to press through to the finish, or (2) to break off for
+a snack.
+
+Please enter your choice: 1
+
+
+
+-------------------------- CONGRATULATIONS! --------------------------
+
+You have beaten the system and completed MP2 with a perfect score!
+
+Now if only this could be the real world...good luck!
+
+
+
+--- Ending adventure. ---
+
+
+
+--- halting the LC-3 ---
+
+PC=x0494 IR=xB1AE PSR=x0400 (ZERO)
+R0=x0000 R1=x7FFF R2=x0000 R3=x41D1 R4=x41D4 R5=x0003 R6=x0075 R7=x0490 
+                   x0494 x0FF9 BRNZP TRAP_HALT
+3FFC: 0000 0000 0000 0000 5000 0001 000E 0011 5265 0002 000B 0000  ............
+4008: 541E 0009 0003 0001 55D6 0004 0005 0002 5722 0038 FFFF FFFF  .........8..
+4014: 58C5 0006 0008 0002 5AA2 0007 0008 0002 5C25 FFFF FFFF FFFF  ............
+4020: 5D92 0007 0002 FFFF 5F05 000A 0002 FFFF 6055 0002 FFFF FFFF  ............
+402C: 6159 0001 000C 000D 6303 0037 FFFF FFFF 643A FFFF FFFF FFFF  .....7......
+4038: 668C 000F 0000 0010 6800 000E FFFF FFFF 693E 000E FFFF FFFF  ............
+4044: 6B13 0013 0000 0012 6D4A FFFF FFFF FFFF 6EF4 0015 0014 0011  ............
+4050: 6FC5 0029 FFFF FFFF 710E 003F FFFF FFFF 7274 0017 0024 0027  .)...?....$'
+405C: 73DC 0018 0021 0016 7595 001F 0019 0017 774D 001A 001B 0018  ..!.........
+4068: 78E2 FFFF FFFF FFFF 7B2C 001C 001E 0018 7CF4 001D 001E 0018  ............
+4074: 7E4C FFFF FFFF FFFF 7F3A 0048 0044 FFFF 814B 0020 0018 FFFF  .....HD.. ..
+4080: 829B 0044 FFFF FFFF 83DF 0017 0022 0023 8589 0021 FFFF FFFF  .D...."#.!..
+408C: 86BC FFFF FFFF FFFF 8813 0025 0016 0026 8987 0024 FFFF FFFF  .....%.&.$..
+4098: 8ABB 0024 FFFF FFFF 8C71 0029 0016 0028 8EA8 FFFF FFFF FFFF  .$...).(....
+40A4: 8F66 002B 002A 0027 903F FFFF FFFF FFFF 9181 0069 FFFF FFFF  .+*'.....i..
+40B0: 92C2 002D 003A 003D 9451 002E 0037 002C 960A 0035 002F 002D  .-:=..7,.5/-
+40BC: 981E 0030 0031 002E 99B3 FFFF FFFF FFFF 9BFD 0032 0034 002E  .01......24.
+40C8: 9E23 0033 0034 002E 9F76 FFFF FFFF FFFF A103 0033 002E FFFF  .34......3..
+40D4: A286 0036 002E FFFF A3D6 002E FFFF FFFF A52A 002D 0039 FFFF  .6.......-9.
+40E0: A610 0083 FFFF FFFF A615 0059 FFFF FFFF A730 003B 002C 003C  .....Y...;,<
+40EC: A8A4 003A FFFF FFFF A9D7 003A FFFF FFFF AC28 003F 002C 003E  .:...:...?,>
+40F8: AE5F FFFF FFFF FFFF AF20 0041 0040 003D B005 0069 FFFF FFFF  .....A@=.i..
+4104: B110 FFFF FFFF FFFF B1F6 0043 0050 0053 B351 0044 004D 0042  .....CPS.DMB
+4110: B50A 004B 0045 0043 B6EB 0046 0047 0044 B8F2 FFFF FFFF FFFF  .KEC.FGD....
+411C: BAD6 0048 004A 0044 BCA6 0049 004A 0044 BDE3 FFFF FFFF FFFF  .HJD.IJD....
+4128: BFFA 0049 0044 FFFF C17D 0044 FFFF FFFF C29E 007A FFFF FFFF  .ID..D...z..
+4134: C2A3 0043 004E 004F C44D 0079 FFFF FFFF C539 FFFF FFFF FFFF  .CNO.y......
+4140: C671 0051 0042 0052 C7E5 0050 FFFF FFFF C9A3 FFFF FFFF FFFF  .QBR.P......
+414C: CC80 0055 0042 0054 CE2B FFFF FFFF FFFF CF7D 0053 FFFF FFFF  .UBT.....S..
+4158: CFFD 0072 FFFF FFFF D002 0082 FFFF FFFF D007 0059 0066 0069  .r.......Yfi
+4164: D139 005A 0063 0058 D2F2 0061 005B 0059 D441 005A FFFF FFFF  .ZcX.a[Y.Z..
+4170: D51D 0078 FFFF FFFF D522 006D FFFF FFFF D527 005F 0069 FFFF  .x...m..._i.
+417C: D6DD FFFF FFFF FFFF D7FB 005F 0069 FFFF D94C 005A FFFF FFFF  ....._i..Z..
+4188: D9DD 0064 FFFF FFFF D9E2 0059 0065 FFFF DB04 004C FFFF FFFF  .d...Ye..L..
+4194: DB09 FFFF FFFF FFFF DDF2 0067 0058 0068 DF9C 007C FFFF FFFF  .....gXh.|..
+41A0: E175 FFFF FFFF FFFF E486 006B 0058 006A E61A 005E 0060 0069  .....kXj.^`i
+41AC: E6AB 0069 FFFF FFFF E72B 0076 FFFF FFFF E730 006C FFFF FFFF  .i...v...l..
+41B8: E735 006F 007C 007F E7EE 0070 0079 006E E8F9 0077 0071 006F  .o|..pyn.wqo
+41C4: EA38 0074 FFFF FFFF EB48 005D FFFF FFFF EB4D FFFF FFFF FFFF  .t...]......
+41D0: EBE0 0075 0073 FFFF ED17 FFFF FFFF FFFF EDE0 0000 0001 0002  .us.........
+41DC: EDE5 0070 FFFF FFFF EE62 0057 FFFF FFFF EE67 006F 0065 FFFF  .p...W...oe.
+41E8: EF7B 007B FFFF FFFF EF80 0056 FFFF FFFF EF85 007D 006E 007E  .{...V...}n~
+41F4: F12F FFFF FFFF FFFF F2BE 007C FFFF FFFF F482 0081 006E 0080  .....|....n.
+4200: F61F FFFF FFFF FFFF F6C0 007F FFFF FFFF F740 0062 FFFF FFFF  .........b..
+420C: F745 005C FFFF FFFF 0000 0000 0000 0000 0000 0000 0000 0000  .\..........
+4218: 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000  ............
+4224: 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000  ............

@@ -1,0 +1,77 @@
+
+Welcome to the LC-3 simulator.
+
+The contents of the LC-3 tools distribution, including sources, management
+tools, and data, are Copyright (c) 2003 Steven S. Lumetta.
+
+The LC-3 tools distribution is free software covered by the GNU General
+Public License, and you are welcome to modify it and/or distribute copies
+of it under certain conditions.  The file COPYING (distributed with the
+tools) specifies those conditions.  There is absolutely no warranty for
+the LC-3 tools distribution, as described in the file NO_WARRANTY (also
+distributed with the tools).
+
+Have fun.
+
+
+--- halting the LC-3 ---
+
+PC=x0494 IR=xB1AE PSR=x0400 (ZERO)
+R0=x0000 R1=x7FFF R2=x0000 R3=x0000 R4=x0000 R5=x0000 R6=x0000 R7=x0490 
+                   x0494 x0FF9 BRNZP TRAP_HALT
+Loaded "test.obj" and set PC to x5000
+Loaded "prog3.obj" and set PC to x3000
+Will not use stdin for LC-3 console input during script execution.
+00 05 07 03
+01 FF FF FF
+02 FF FF FF
+03 01 04 FF
+04 06 02 FF
+05 FF FF FF
+06 FF FF FF
+07 04 FF FF
+
+
+--- Starting adventure. ---
+
+Story Text 0. Do you choose (1), (2) or (3)?
+Please enter your choice: 3
+
+Story Text 3. Do you choose (1) or (2)?
+Please enter your choice: x
+
+
+
+--- Invalid choice. ---
+
+Story Text 3. Do you choose (1) or (2)?
+Please enter your choice: 3
+
+
+
+--- Invalid choice. ---
+
+Story Text 3. Do you choose (1) or (2)?
+Please enter your choice: 2
+
+Story Text 4. Do you choose (1) or (2)?
+Please enter your choice: 1
+
+Ending Text 6.
+
+
+--- Ending adventure. ---
+
+
+
+--- halting the LC-3 ---
+
+PC=x0494 IR=xB1AE PSR=x0400 (ZERO)
+R0=x0000 R1=x7FFF R2=x0000 R3=x4011 R4=x4018 R5=x0003 R6=x0006 R7=x0490 
+                   x0494 x0FF9 BRNZP TRAP_HALT
+3FFC: 0000 0000 0000 0000 5000 0005 0007 0003 5031 FFFF FFFF FFFF  ............
+4008: 5044 FFFF FFFF FFFF 5057 0001 0004 FFFF 5083 0006 0002 FFFF  ............
+4014: 50AF FFFF FFFF FFFF 50C2 FFFF FFFF FFFF 50D5 0004 FFFF FFFF  ............
+4020: 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000  ............
+402C: 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000  ............
+4038: 0000 0000 0000 0000 0000 0000 0000 0000 0000                 .........   

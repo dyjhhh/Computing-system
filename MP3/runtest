@@ -1,0 +1,6 @@
+file test
+file prog3
+option stdin off
+continue
+3x321
+dump x3FFC x4040
