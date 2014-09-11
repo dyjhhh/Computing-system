@@ -1,0 +1,5 @@
+.ORIG	x5000
+.FILL #0009
+.FILL #0004
+.STRINGZ "abcdedcba"
+.END
