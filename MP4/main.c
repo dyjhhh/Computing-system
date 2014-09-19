@@ -37,4 +37,26 @@ void convert(int value, int key)
 {
     // YOUR CODE GOES HERE.
 }
-
+switch (key)
+{
+ case '0';
+  printf("%d\n", n);
+  for (c = 31; c >= 0; c--)
+  {
+    k = n >> c;
+    if (k & 1)
+      printf("1");
+    else
+      printf("0");
+  }
+ 
+  printf("\n");
+ 
+ case '1';
+ printf("%o\n", value);
+ case '2';   
+   printf("%d\n", value);
+ case '3';
+ printf("%x\n", value)
+ default
+   }
