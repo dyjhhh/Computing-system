@@ -1,4 +1,6 @@
+#include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "printBinary.h"
 
 // FUNCTION DECLARATIONS
@@ -33,30 +35,30 @@ int main(void)
  * @param key The key that indicates the conversion operation
  * @return none
  */
+//start conversion
 void convert(int value, int key)
 {
-    // YOUR CODE GOES HERE.
-}
 switch (key)
 {
- case '0';
-  printf("%d\n", n);
-  for (c = 31; c >= 0; c--)
-  {
-    k = n >> c;
-    if (k & 1)
-      printf("1");
-    else
-      printf("0");
-  }
- 
-  printf("\n");
- 
- case '1';
+//if 0 is entered, convert to binary
+ case 0:
+ {
+ void printBinary(const unsigned char val);;
+ }
+//if 1 is entered, convert to octal
+ case 1:
  printf("%o\n", value);
- case '2';   
+ break;
+//if 2 is entered, convert to decimal
+ case 2:   
    printf("%d\n", value);
- case '3';
- printf("%x\n", value)
- default
+ break;
+//if 3 is entered, convert to hex
+ case 3:
+   printf("%x\n", value);
+   break;
+//if no choice is matched, print out error message
+ default:
+   printf("Invalid option\n");
    }
+}
