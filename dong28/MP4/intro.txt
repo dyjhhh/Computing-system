@@ -1,0 +1,2 @@
+This program converts the base of a user input interger. Th user enters an integer and a conversion operation, and the converted number is printed to the
+console. The convert function takes two integer values, a value to be converted and a key that indicates the conversion operation, executes the conversion and prints the value to the console.
