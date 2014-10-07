@@ -23,7 +23,7 @@
 ; SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS."
 ;
 ; Author:	    Eugene ... (a TA...I forget his last name)
-; Version:	    1.01
+; Version:	    1.00
 ; Creation Date:    27 February 2004
 ; Filename:	    test.asm (originally mp2data.asm)
 ; History:
