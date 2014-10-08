@@ -17,6 +17,14 @@
  */
 
 static int peg1;
+static int peg2;
+static int peg3;
+static int peg4;
+static int turn;
+static int guess1;
+static int guess2;
+static int guess3;
+static int guess4;
 
 
 /*
@@ -28,12 +36,17 @@ static int peg1;
  *               other than a single integer), or 1 on success
  * SIDE EFFECTS: initializes pseudo-random number generation
  */
-int set_seed (const char* seed_str)
-{
-    // REPLACE THIS WITH YOUR OWN CODE
-    srand(12345);
-    return 1;
+int set_seed(const char* seed_str){
+	int seed;
+	char post[2];
+	if (1 == sscanf(seed_str, "%d%1s", &seed, post)){
+		srand(seed);
+		return 1;
+	}
+	printf("set_seed: invalid seed. \n");
+	return 0;
 }
+
 
 
 /*
@@ -47,14 +60,21 @@ int set_seed (const char* seed_str)
  * RETURN VALUE: 1 on success, or 0 on failure (should never fail, though)
  * SIDE EFFECTS: records the solution code for use by make_guess
  */
-int start_game (int* one, int* two, int* three, int* four)
+int start_game(int* one, int* two, int* three, int* four)
 {
-    // REPLACE THIS WITH YOUR OWN CODE
-    *one   = 1;
-    *two   = 1;
-    *three = 1;
-    *four  = 1;
-    return 1;
+	// REPLACE THIS WITH YOUR OWN CODE
+
+	*one = 1 + rand() % 8;
+	*two = 1 + rand() % 8;
+	*three = 1 + rand() % 8;
+	*four = 1 + rand() % 8;
+
+	peg1 = *one;
+	peg2 = *two;
+	peg3 = *three;
+	peg4 = *four;
+
+	return 1;
 }
 
 
@@ -75,10 +95,84 @@ int start_game (int* one, int* two, int* three, int* four)
  * SIDE EFFECTS: prints the number of matches found using printf
  *               (NOTE: the output format MUST MATCH EXACTLY)
  */
-int make_guess (const char* guess_str, int* one, int* two, 
-	    int* three, int* four)
+int make_guess(const char* guess_str, int* one, int* two,
+	int* three, int* four)
 {
-    // REPLACE THIS WITH YOUR OWN CODE
-    return 0;
+	// REPLACE THIS WITH YOUR OWN CODE
+	char guess;
+	if (4 == sscanf(guess_str, "%d %d %d %d", &guess1, &guess2, &guess3, &guess4)){
+		int perfect = 0;
+		int high = 0;
+		int low = 0;
+
+		int guessNum[4];
+		int pegNum[4];
+
+		guessNum[0] = guess1;
+		guessNum[1] = guess2;
+		guessNum[2] = guess3;
+		guessNum[3] = guess4;
+
+		int i, j;
+
+		pegNum[0] = peg1;
+		pegNum[1] = peg2;
+		pegNum[2] = peg3;
+		pegNum[3] = peg4;
+
+		//First count the perefect match
+		for (i = 0; i < 4; i++){
+			for (j = 0; j < 4; j++){
+
+				if (guessNum[i] == pegNum[j]){
+					perfect++;
+					guessNum[i] = -1;
+					pegNum[j] = -1;
+
+
+				}
+			}
+		}
+
+		//Count high and low.
+		for (i = 0; i < 4; i++){
+			for (j = 0; j < 4; j++){
+				if (pegNum[i] > 0 && guessNum[j] >0){
+					if (guessNum[i] < pegNum[j]){
+						high++;
+						guessNum[i] = -1;
+						pegNum[j] = -1;
+						break;
+					}
+					else{
+						low++;
+						guessNum[i] = -1;
+						pegNum[j] = -1;
+
+						break;
+					}
+				}
+			}
+		}
+
+		turn++;
+		printf("With guess %d, you got %d perfect match, %d high and %d low.\n", turn, perfect, low, high);
+
+
+		*one = guess1;
+		*two = guess2;
+		*three = guess3;
+		*four = guess4;
+		return 1;
+	}
+
+	else {
+		printf("set_seed: invalid seed. \n");
+		return 0;
+
+
+	}
+
 }
+
 
