@@ -17,7 +17,7 @@ int main ()
 	}
     } while (!set_seed (buf));
 
-    if (!start_game (&peg[0], &peg[1], &peg[2], &peg[3])) {
+	if (!start_game(&peg[0], &peg[1], &peg[2], &peg[3])) {
         printf ("\nGame start failed.\n");
 	return 3;
     }
@@ -26,7 +26,7 @@ int main ()
 	printf ("Guess %d\n", turn);
 	do {
 	    printf ("Enter your guess (#1 #2 #3 #4): ");
-	    if (NULL == fgets (buf, 200, stdin)) {
+   if (NULL == fgets (buf, 200, stdin)) {
 		printf ("\nProgram terminated.\n");
 		return 3;
 	    }
