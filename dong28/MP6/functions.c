@@ -8,9 +8,11 @@
  */
 int getRadius(double sigma)
 {
-  return 0;
+/*The function to calculate the radius*/
+        int radius;    
+        radius = ceil(3 * sigma);
+    return radius;    
 }
-
 /*
  * calculateGausFilter - calculates the Gaussian filter
  * INTPUTS: gausFitler - pointer to the array for the gaussian filter
@@ -20,9 +22,43 @@ int getRadius(double sigma)
  */
 void calculateGausFilter(double *gausFilter,double sigma)
 {
-  return;
+        int r = getRadius(sigma);
+        double x, y;
+        int i = 0;
+        double sum = 0;
+ 
+        for(y = -r ; y <=r ; y++)
+        {
+                for(x = -r ; x <= r ; x++)
+                {
+                        /*Creates the Gaussian filter according to the equation given*/
+                        *gausFilter[i] = (1 / (sqrt(2 * M_PI * pow(sigma,2)))) * exp(-(pow(x, 2) + pow(y, 2)) / (2 * pow(sigma, 2)));
+                        i++;
+                }
+               
+        }
+       
+        i = 0;
+        for(y = -r ; y <=r ; y++)
+        {      
+                for (x = -r; x <= r ; x++)
+                {
+                        sum = sum + *gausFilter[i];
+                        i++;
+                }
+        }
+ 
+        i = 0;
+        for(y = -r ; y <=r ; y++)
+        {      
+                for (x = -r; x <= r ; x++)
+                {
+                        *gausFilter[i] = *gausFilter[i] / sum;
+                        i++;
+                }
+        }
+ 
 }
-
 /* convolveImage - performs a convolution between a filter and image
  * INPUTS: inRed - pointer to the input red channel
  *         inBlue - pointer to the input blue channel
@@ -43,7 +79,66 @@ void convolveImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
                    uint8_t *outGreen,uint8_t *outAlpha,const double *filter,
                    int radius,int width,int height)
 {
-  return;
+        int rows;
+        int columns;
+        int new_rows;
+        int new_columns;
+        int r = getRadius(raduis);
+ 
+        double Red_val = 0;
+        double Blue_val = 0;
+        double Green_val = 0;
+        double Alpha_val = 0;
+ 
+        for(rows = 0 ; rows < height ; rows++)
+        {
+                for(columns = 0; columns < width ; columns++)
+                {
+                 
+                  Red_val = 0;
+                  Green_val = 0;
+                  Blue_val = 0;
+                  Alpha_val = 0;
+                        for(new_rows = 0 ; new_rows < 2 * r + 1 ; new_rows++)
+                        {
+                                for(new_columns = 0 ; new_columns < 2 * r + 1 ; new_columns++)
+                                {
+                                        if( (rows + new_rows - r) < 0 || (rows + new_rows - r) >= width || (columns + new_columns - r) < 0 || (columns + new_columns - r) >= height)
+                                                Red_val += 0;
+                                        else
+                                        {
+                                                Red_val = Red_val + inRed[(rows + new_rows - r) * width + (columns + new_columns - r)] * Filter[new_rows * (2 * r + 1) + new_columns];
+                                                Blue_val = Blue_val + inBlue[(rows + new_rows - r) * width + (columns + new_columns - r)] * Filter[new_rows * (2 * r + 1) + new_columns];
+                                                Green_val = Green_val + inGreen[(rows + new_rows - r) * width + (columns + new_columns - r)] * Filter[new_rows * (2 * r + 1) + new_columns];
+                                                Alpha_val = Alpha_val + inAlpha[(rows + new_rows - r) * width + (columns + new_columns - r)] * Filter[new_rows * (2 * r + 1) + new_columns];
+                                        }
+                                }
+                        }
+ 
+                       if(Red_val > 255)
+                               Red_val = 255;
+                       if(Red_val < 0)
+                               Red_val = 0;
+                       if(Green_val > 255)
+                               Green_val = 255;
+                       if(Green_val < 0)
+                               Green_val = 0;
+                       if(Blue_val > 255)
+                               Blue_val = 255;
+                       if(Blue_val < 0)
+                               Blue_val = 0;
+                       if(Alpha_val > 255)
+                               Alpha_val = 255;
+                       if(Alpha_val < 0)
+                               Alpha_val = 0;
+ 
+                       outRed[rows * width + columns] = Red_val;
+                       outGreen[rows * width + columns] = Green_val;
+                       outBlue[rows * width + columns] = Blue_val;
+                       outAlpha[rows * width + columns] = Alpha_val;
+ 
+                }
+        }
 }
 
 /* convertToGray - convert the input image to grayscale
