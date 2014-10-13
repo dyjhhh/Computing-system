@@ -184,8 +184,8 @@ void pixelate(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
               uint8_t *inAlpha,uint8_t *outRed,uint8_t *outBlue,
               uint8_t *outGreen,uint8_t *outAlpha,int pixelY,int pixelX,
               int width,int height)
-{
-  		int rows;
+{ return;
+  		/* int rows;
         int columns;
         int new_rows;
         int new_columns;
@@ -206,7 +206,7 @@ void pixelate(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
         		while (columns + pixelY >= height) pixelY--;
         		
         		
-        	}
+        	} */
 }
 /* convertToGray - convert the input image to grayscale
  * INPUTS: inRed - pointer to the input red channel
