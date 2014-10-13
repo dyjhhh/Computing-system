@@ -13,6 +13,9 @@ int getRadius(double sigma)
         radius = ceil(3 * sigma);
     return radius;    
 }
+
+
+
 /*
  * calculateGausFilter - calculates the Gaussian filter
  * INTPUTS: gausFitler - pointer to the array for the gaussian filter
@@ -74,73 +77,137 @@ void calculateGausFilter(double *gausFilter,double sigma)
  *          outAlpha - pointer to the output alpha channel
  * RETURN VALUES: none
  */
+ 
+ 
+ 
+ 
 void convolveImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
                    uint8_t *inAlpha, uint8_t *outRed,uint8_t *outBlue,
                    uint8_t *outGreen,uint8_t *outAlpha,const double *filter,
                    int radius,int width,int height)
 {
-        int rows;
+   
+    int radius = getRadius(radius);
+    int size= 2*radius+1;
+    int row,column,row_checker,column_checker;  //Creates 2 sets of row/column, 1 for checking and 1 for position
+ 
+    double red_channel=0;
+    double blue_channel=0;
+    double green_channel=0;
+    double alpha_channel=0;
+ 
+    for(row = 0; row < height; row++)           //Two outer loops hold the current position
+    {
+        for(column = 0; column < width; column++)
+        {
+            //Resets the values for the next check
+            red_channel=0;
+            blue_channel=0;
+            green_channel=0;  
+            alpha_channel=0;
+            for(row_checker = 0; row_checker < size; row_checker++)
+            {
+                for(column_checker = 0; column_checker < size; column_checker++)
+                {
+                    if((row+row_checker-radius)<0 || (row+row_checker-radius)>=width ||  
+                    (column+column_checker-radius)<0 || (column+column_checker-radius)>=height) //Used to check if the current filter position
+                                                                                                //is within the boundary
+                    {
+                        red_channel+=0;
+                        blue_channel+=0;
+                        green_channel+=0;
+                        alpha_channel+=0;
+                    }
+                    else        //If the current filter location is valid, then the filter is applied to it
+                    {
+                        red_channel= red_channel + inRed[width * (row + row_checker - radius) +
+                        (column + column_checker - radius)]* filter[row_checker *
+                        (size) + column_checker];
+                       
+                        blue_channel= blue_channel + inBlue[width * (row + row_checker - radius) +
+                        (column + column_checker - radius)]* filter[row_checker *
+                        (size) + column_checker];
+ 
+                        green_channel= green_channel + inGreen[width * (row + row_checker - radius) +
+                        (column + column_checker - radius)]* filter[row_checker *
+                        (size) + column_checker];
+                       
+                        alpha_channel= alpha_channel + inAlpha[width * (row + row_checker - radius) +
+                        (column + column_checker - radius)]* filter[row_checker *
+                        (size) + column_checker];
+                    }
+                }
+            }
+           
+            //If the RBG or alpha values go out of bounds, these ifs will reset them
+            if(red_channel>255)
+                red_channel=255;
+            if(red_channel<0)
+                red_channel=0;
+            if(blue_channel>255)
+                blue_channel=255;
+            if(blue_channel<0)
+                blue_channel=0;
+            if(green_channel>255)
+                green_channel=255;
+            if(green_channel<0)
+                green_channel=0;
+            if(alpha_channel>255)
+                alpha_channel=255;
+            if(alpha_channel<0)
+                alpha_channel=0;
+           
+            outRed[row * width + column] = red_channel;        //Puts the color value into the output array
+            outBlue[row * width + column] = blue_channel;
+            outGreen[row * width + column] = green_channel;
+            outAlpha[row * width + column] = alpha_channel;
+          }  
+    }
+}
+
+/* pixelate - pixelates the image
+ * INPUTS: inRed - pointer to the input red channel
+ *         inBlue - pointer to the input blue channel
+ *         inGreen - pointer to the input green channel
+ *         inAlpha - pointer to the input alpha channel
+ *         pixelateY - height of the block
+ *         pixelateX - width of the block
+ *         width - width of the input image
+ *         height - height of the input image
+ * OUTPUTS: outRed - pointer to the output red channel
+ *          outBlue - pointer to the output blue channel
+ *          outGreen - pointer to the output green channel
+ *          outAlpha - pointer to the output alpha channel
+ * RETURN VALUES: none
+ */
+void pixelate(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
+              uint8_t *inAlpha,uint8_t *outRed,uint8_t *outBlue,
+              uint8_t *outGreen,uint8_t *outAlpha,int pixelY,int pixelX,
+              int width,int height)
+{
+  		int rows;
         int columns;
         int new_rows;
         int new_columns;
-        int r = getRadius(raduis);
+        int pixelateSize;
  
         double Red_val = 0;
         double Blue_val = 0;
         double Green_val = 0;
         double Alpha_val = 0;
- 
-        for(rows = 0 ; rows < height ; rows++)
+        
+        for(rows=0; rows < height; rows += pixelateSize)
         {
-                for(columns = 0; columns < width ; columns++)
-                {
-                 
-                  Red_val = 0;
-                  Green_val = 0;
-                  Blue_val = 0;
-                  Alpha_val = 0;
-                        for(new_rows = 0 ; new_rows < 2 * r + 1 ; new_rows++)
-                        {
-                                for(new_columns = 0 ; new_columns < 2 * r + 1 ; new_columns++)
-                                {
-                                        if( (rows + new_rows - r) < 0 || (rows + new_rows - r) >= width || (columns + new_columns - r) < 0 || (columns + new_columns - r) >= height)
-                                                Red_val += 0;
-                                        else
-                                        {
-                                                Red_val = Red_val + inRed[(rows + new_rows - r) * width + (columns + new_columns - r)] * Filter[new_rows * (2 * r + 1) + new_columns];
-                                                Blue_val = Blue_val + inBlue[(rows + new_rows - r) * width + (columns + new_columns - r)] * Filter[new_rows * (2 * r + 1) + new_columns];
-                                                Green_val = Green_val + inGreen[(rows + new_rows - r) * width + (columns + new_columns - r)] * Filter[new_rows * (2 * r + 1) + new_columns];
-                                                Alpha_val = Alpha_val + inAlpha[(rows + new_rows - r) * width + (columns + new_columns - r)] * Filter[new_rows * (2 * r + 1) + new_columns];
-                                        }
-                                }
-                        }
- 
-                       if(Red_val > 255)
-                               Red_val = 255;
-                       if(Red_val < 0)
-                               Red_val = 0;
-                       if(Green_val > 255)
-                               Green_val = 255;
-                       if(Green_val < 0)
-                               Green_val = 0;
-                       if(Blue_val > 255)
-                               Blue_val = 255;
-                       if(Blue_val < 0)
-                               Blue_val = 0;
-                       if(Alpha_val > 255)
-                               Alpha_val = 255;
-                       if(Alpha_val < 0)
-                               Alpha_val = 0;
- 
-                       outRed[rows * width + columns] = Red_val;
-                       outGreen[rows * width + columns] = Green_val;
-                       outBlue[rows * width + columns] = Blue_val;
-                       outAlpha[rows * width + columns] = Alpha_val;
- 
-                }
-        }
+        	for(columns = 0; columns < width, columns += pixelateSize)
+        	{	pixelX = pixelateSize/2;
+        		pixelY = pixelateSize/2;
+        		
+        		while (rows + pixelX >= width) pixelX--;
+        		while (columns + pixelY >= height) pixelY--;
+        		
+        		
+        	}
 }
-
 /* convertToGray - convert the input image to grayscale
  * INPUTS: inRed - pointer to the input red channel
  *         inBlue - pointer to the input blue channel
@@ -204,28 +271,6 @@ void invertImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
   return;
 }
 
-/* pixelate - pixelates the image
- * INPUTS: inRed - pointer to the input red channel
- *         inBlue - pointer to the input blue channel
- *         inGreen - pointer to the input green channel
- *         inAlpha - pointer to the input alpha channel
- *         pixelateY - height of the block
- *         pixelateX - width of the block
- *         width - width of the input image
- *         height - height of the input image
- * OUTPUTS: outRed - pointer to the output red channel
- *          outBlue - pointer to the output blue channel
- *          outGreen - pointer to the output green channel
- *          outAlpha - pointer to the output alpha channel
- * RETURN VALUES: none
- */
-void pixelate(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
-              uint8_t *inAlpha,uint8_t *outRed,uint8_t *outBlue,
-              uint8_t *outGreen,uint8_t *outAlpha,int pixelY,int pixelX,
-              int width,int height)
-{
-  return;
-}
 
 /* colorDodge - blends the bottom layer with the top layer
  * INPUTS: botRed - pointer to the bottom red channel
