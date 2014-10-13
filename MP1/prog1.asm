@@ -138,63 +138,59 @@ GET_NEXT
 	BRnzp COUNTLOOP		; go to start of counting loop
 
 PRINT_HIST
-    LD R0,POS_AT        ; load POS_AT into r0.
-    OUT                 ; print ASCII character '@' onto screen
-    LD R0, ASC_SPACE    ; load ASC_SPACE into R0
-    OUT                 ; print a space onto screen
-    LD R1,POS_AT        ; load POS_AT into R1
-    LD R2,HIST_ADDR     ; load histogram starting address into R2
+    LD R0,POS_AT   ; Load address of pos_at into r0.
+    OUT
+    LD R0, ASC_SPACE
+    OUT
+    LD R1,POS_AT 
+    LD R2,HIST_ADDR
 
 PRINT_HEX
-	LDR R3,R2,#0
-    AND R5,R5,#0        ; initialize digit count to 0
-    
+	 LDR R3,R2,#0
+     AND R5,R5,#0 ; initialize digit count to 0
 DIG_LOOP
-    AND R4,R4,#0        ; initialize bit count to 0
-    AND R0,R0,#0        ; initialize current digit to 0
-    
+     AND R4,R4,#0 ; initialize bit count to 0
+     AND R0,R0,#0 ; initialize current digit to 0
 BIT_LOOP
-    ADD R0,R0,R0        ; double the current digit (shift left)
-    ADD R3,R3,#0        ; check if it is the MSB set
-    BRzp MSB_CLEAR
-    ADD R0,R0,#1        ; if so, add 1 to digit
-    
+     ADD R0,R0,R0 ; double the current digit (shift left)
+     ADD R3,R3,#0 ; is the MSB set?
+     BRzp MSB_CLEAR
+     ADD R0,R0,#1 ; if so, add 1 to digit
 MSB_CLEAR
-    ADD R3,R3,R3        ; get rid of that bit (shift left)
-    ADD R4,R4,#1        ; increment the bit count
-    ADD R6,R4,#-4       ; check if we have four bits yet 
-    BRn BIT_LOOP        ; if not, go get another
-    ADD R6,R0,#-10      ; is the digit >= 10?
-    BRzp HIGH_DIGIT     ; if so, we need to print a letter
-    LD R6,ASC_ZERO      ; add ’0’ to digits < 10
-    BRnzp PRINT_DIGIT
-    
+     ADD R3,R3,R3 ; now get rid of that bit (shift left)
+     ADD R4,R4,#1 ; increment the bit count
+     ADD R6,R4,#-4 ; have four bits yet?
+     BRn BIT_LOOP ; if not, go get another
+     ADD R6,R0,#-10 ; is the digit >= 10?
+     BRzp HIGH_DIGIT ; if so, we need to print a letter
+     LD R6,ASC_ZERO ; add ’0’ to digits < 10
+     BRnzp PRINT_DIGIT
 HIGH_DIGIT
-    LD R6,ASC_HIGH      ; add ’A’ - 10 to digits >= 10
+     LD R6,ASC_HIGH ; add ’A’ - 10 to digits >= 10
 PRINT_DIGIT
-    ADD R0,R0,R6        ; calculate the digit
-    OUT
-    ADD R5,R5,#1        ; increment the digit count
-    ADD R6,R5,#-4       ; check if printed both digits yet?
-    BRn DIG_LOOP        ; if not, go print another
+     ADD R0,R0,R6 ; calculate the digit
+     OUT
+     ADD R5,R5,#1 ; increment the digit count
+     ADD R6,R5,#-4 ; printed both digits yet?
+     BRn DIG_LOOP ; if not, go print another
 
-    LEA R0, NEWLN       ; Load address of newln into r0.
-    LDR R0,R0,#0        ; Load contents into r0.
-    OUT                 ; Print R0 (i.e. a newline).
+LEA r0, NEWLN   ; Load address of newln into r0.
+LDR r0, r0, #0  ; Load contents into r0.
+OUT             ; Print r0 (i.e. a newline).
 
-    ADD R1,R1, #1       ; go to next char in ASCII table.
-    ADD R0,R1, #0       ; store content of R1 into R0
-    LD  R6,NEG_Z        ; load the additive inverse of ASCII 'Z'
-    ADD R6,R6,R1        ; compare the value with 'Z'
-    BRzp DONE           ; if the character is 'Z', go to done
-    ADD R0,R1,#0        ; store content of R1 into R0
-    OUT                 ; print out the ascii character
-    LD  R0,ASC_SPACE    ; load R0 with ASC_SPACE
-    OUT                 ; print out a space
-    ADD R2,R2,#1        ; go to the next histogram entry
-    LD R6, NEG_Z        ; load the additive inverse of ASCII 'Z'
-    ADD R6,R6,R1        ; compare with 'Z'
-    BRn PRINT_HEX       ; Loop if the character is not 'Z' yet 
+  add r1, r1, #1  ; Go to next char in ASCII table.
+  ADD R0, R1, #0
+  LD R6, NEG_Z
+  ADD R6,R6,R1
+  BRzp DONE
+  ADD R0, R1, #0
+  OUT
+  LD R0, ASC_SPACE
+  OUT
+  ADD R2, R2, #1
+  LD R6, NEG_Z
+  ADD R6,R6,R1
+  BRn PRINT_HEX  ; Loop if positive.
 
 
 
