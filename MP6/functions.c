@@ -1,3 +1,4 @@
+#include <math.h>
 #include "functions.h"
 
 /*
@@ -8,10 +9,8 @@
  */
 int getRadius(double sigma)
 {
-/*The function to calculate the radius*/
-        int radius;    
-        radius = ceil(3 * sigma);
-    return radius;    
+/*The function to calculate the radius*/    
+        return  ceil(3 * sigma);   
 }
 
 
@@ -25,6 +24,37 @@ int getRadius(double sigma)
  */
 void calculateGausFilter(double *gausFilter,double sigma)
 {
+  int i;
+  double size,value,weight,x,y;
+  int radius = getRadius(sigma);
+  size = 2*radius+1;
+  size = size*size;
+  i=0;
+  weight=0;
+  for(y=-radius;y <=radius ;y++)       //Loops through the filter, finishing a row then moving to the next column afterwards
+    {
+       
+      for(x=-radius;x<=radius;x++)
+	{          
+	  value = (1/(sqrt(2*M_PI*sigma*sigma)))
+	    *exp(-(x*x+y*y)/(2*sigma*sigma));
+	  gausFilter[i] = value;                  //Puts the filter value into the filter array
+	  i++;
+	}
+       
+ 
+    }
+  for(i=0;i<size;i++)
+    {
+      weight = weight + gausFilter[i];     //Calculates the weight of the filter
+    }
+  for(i=0;i<size;i++)
+    {
+      gausFilter[i] = gausFilter[i]/weight;   //Distriubtes the weight amongst the filter
+    }    
+}
+
+/*{
         int r = getRadius(sigma);
         double x, y;
         int i = 0;
@@ -34,8 +64,8 @@ void calculateGausFilter(double *gausFilter,double sigma)
         {
                 for(x = -r ; x <= r ; x++)
                 {
-                        /*Creates the Gaussian filter according to the equation given*/
-                        *gausFilter[i] = (1 / (sqrt(2 * M_PI * pow(sigma,2)))) * exp(-(pow(x, 2) + pow(y, 2)) / (2 * pow(sigma, 2)));
+                      
+                        gausFilter[i] = (1 / (sqrt(2 * M_PI * pow(sigma,2)))) * exp(-(pow(x, 2) + pow(y, 2)) / (2 * pow(sigma, 2)));
                         i++;
                 }
                
@@ -46,7 +76,7 @@ void calculateGausFilter(double *gausFilter,double sigma)
         {      
                 for (x = -r; x <= r ; x++)
                 {
-                        sum = sum + *gausFilter[i];
+                        sum = sum + gausFilter[i];
                         i++;
                 }
         }
@@ -56,12 +86,12 @@ void calculateGausFilter(double *gausFilter,double sigma)
         {      
                 for (x = -r; x <= r ; x++)
                 {
-                        *gausFilter[i] = *gausFilter[i] / sum;
+                        gausFilter[i] = gausFilter[i] / sum;
                         i++;
                 }
         }
  
-}
+}*/
 /* convolveImage - performs a convolution between a filter and image
  * INPUTS: inRed - pointer to the input red channel
  *         inBlue - pointer to the input blue channel
@@ -79,15 +109,13 @@ void calculateGausFilter(double *gausFilter,double sigma)
  */
  
  
- 
- 
+  
 void convolveImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
                    uint8_t *inAlpha, uint8_t *outRed,uint8_t *outBlue,
                    uint8_t *outGreen,uint8_t *outAlpha,const double *filter,
-                   int radius,int width,int height)
+                   int radius , int width,int height)
 {
    
-    int radius = getRadius(radius);
     int size= 2*radius+1;
     int row,column,row_checker,column_checker;  //Creates 2 sets of row/column, 1 for checking and 1 for position
  
@@ -189,7 +217,11 @@ void pixelate(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
         int columns;
         int new_rows;
         int new_columns;
+<<<<<<< .mine
+        int r = getRadius(radius);
+=======
         int pixelateSize;
+>>>>>>> .r14228
  
         double Red_val = 0;
         double Blue_val = 0;
@@ -198,6 +230,44 @@ void pixelate(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
         
         for(rows=0; rows < height; rows += pixelateSize)
         {
+<<<<<<< .mine
+                for(columns = 0; columns < width ; columns++)
+                {
+                 
+                  Red_val = 0;
+                  Green_val = 0;
+                  Blue_val = 0;
+                  Alpha_val = 0;
+                        for(new_rows = 0 ; new_rows < 2 * r + 1 ; new_rows++)
+                        {
+                                for(new_columns = 0 ; new_columns < 2 * r + 1 ; new_columns++)
+                                {
+                                        if( (rows + new_rows - r) < 0 || (rows + new_rows - r) >= width || (columns + new_columns - r) < 0 || (columns + new_columns - r) >= height)
+                                                break;
+                                        else
+                                        {
+                                                Red_val = Red_val + inRed[(rows + new_rows - r) * width + (columns + new_columns - r)] * filter[new_rows * (2 * r + 1) + new_columns];
+                                                Blue_val = Blue_val + inBlue[(rows + new_rows - r) * width + (columns + new_columns - r)] * filter[new_rows * (2 * r + 1) + new_columns];
+                                                Green_val = Green_val + inGreen[(rows + new_rows - r) * width + (columns + new_columns - r)] * filter[new_rows * (2 * r + 1) + new_columns];
+                                                Alpha_val = Alpha_val + inAlpha[(rows + new_rows - r) * width + (columns + new_columns - r)] * filter[new_rows * (2 * r + 1) + new_columns];
+                                        }
+                                }
+                        }
+ 
+                       if(Red_val > 255)
+                               Red_val = 255;
+                       if(Red_val < 0)
+                               Red_val = 0;
+                       if(Green_val > 255)
+                               Green_val = 255;
+                       if(Green_val < 0)
+                               Green_val = 0;
+                       if(Blue_val > 255)
+                               Blue_val = 255;
+                       if(Blue_val < 0)
+                               Blue_val = 0;
+                       if
+                               Alpha_
         	for(columns = 0; columns < width, columns += pixelateSize)
         	{	pixelX = pixelateSize/2;
         		pixelY = pixelateSize/2;
