@@ -7,6 +7,7 @@
  * OUTPUTS: none
  * RETURN VALUE: radius - radius of the filter
  */
+
 int getRadius(double sigma)
 {
 /*The function to calculate the radius*/    
@@ -22,6 +23,7 @@ int getRadius(double sigma)
  * OUTPUTS: none
  * RETURN VALUE: none
  */
+
 void calculateGausFilter(double *gausFilter,double sigma)
 {
   int i;

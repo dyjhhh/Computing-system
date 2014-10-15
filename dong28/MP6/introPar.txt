@@ -1,0 +1,4 @@
+This program implements a Gaussian filter, image convolution and pixelate. Gaussian filter is a type of image filter that uses a Gaussian function for calculating the filter to apply to each pixel in the image by convolving the image with the filter. The contain also contains other filters that you can apply to 
+input images to achieve other effects once you have correctly implemented image convolution. Finally, the program implements pixelate which decreases the resolution of the image by changing the values of pixels in a block with the average taken over the entire block. The objective for this week is for you to gain some 
+experience with arrays and pointers, to implement code using subroutines, and to solve a problem using 
+programming knowledge gained from the class.
