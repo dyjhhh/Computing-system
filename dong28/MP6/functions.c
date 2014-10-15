@@ -72,6 +72,10 @@ void calculateGausFilter(double *gausFilter,double sigma)
  
  
   
+void convolveImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
+                   uint8_t *inAlpha, uint8_t *outRed,uint8_t *outBlue,
+                   uint8_t *outGreen,uint8_t *outAlpha,const double *filter,
+                   int radius , int width,int height)
 {
   if(radius < 1)
     return;
@@ -113,85 +117,6 @@ int Check(int value){
   else if(value < 0)
     return 0;
   else return value;
-}
-
-/* pixelate - pixelates the image
- * INPUTS: inRed - pointer to the input red channel
- *         inBlue - pointer to the input blue channel
- *         inGreen - pointer to the input green channel
- *         inAlpha - pointer to the input alpha channel
- *         pixelateY - height of the block
- *         pixelateX - width of the block
- *         width - width of the input image
- *         height - height of the input image
- * OUTPUTS: outRed - pointer to the output red channel
- *          outBlue - pointer to the output blue channel
- *          outGreen - pointer to the output green channel
- *          outAlpha - pointer to the output alpha channel
- * RETURN VALUES: none
- */
-void pixelate(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
-              uint8_t *inAlpha,uint8_t *outRed,uint8_t *outBlue,
-              uint8_t *outGreen,uint8_t *outAlpha,int pixelY,int pixelX,
-              int width,int height)
-{
-  if(pixelY <= 1 || pixelX <= 1){
-    int i;
-    for(i = 0; i < width*height; i++){
-      outRed[i] = inRed[i];
-      outGreen[i] = inGreen[i];
-      outBlue[i] = inBlue[i];
-      outAlpha[i] = inAlpha[i];
-    }
-    return;
-  }
-  int i, j;
-  for(i = 0; i < height; i+=pixelY)
-  {
-    for(j = 0; j < width; j+=pixelX)
-    {
-      double redSum = 0.0, greenSum = 0.0, blueSum = 0.0, alphaSum = 0.0;
-      int x, y;
-      int numPixels = 0;
-      int index = i*width + j;
-      for(y = 0; y < pixelY; y++)
-      {
-        for(x = 0; x < pixelX; x++)
-        {
-          int theindex = index + y*width + x;
-          bool inRange = theindex < (width*height);
-          bool tooRight = theindex < ((i+y)*width + width);
-          bool tooLeft = theindex >= ((i+y)*width);
-          if(inRange && tooRight  && tooLeft)
-          {
-            redSum+=inRed[theindex];
-            greenSum+=inGreen[theindex];
-            blueSum+=inBlue[theindex];
-            alphaSum+=inAlpha[index];
-            numPixels++;
-          }
-        }
-      }
-      for(y = 0; y < pixelY; y++)
-      {
-        for(x = 0; x < pixelX; x++)
-        {
-          int theindex = index + y*width + x;
-          bool inRange = theindex < (width*height);
-          bool tooRight = theindex < ((i+y)*width + width);
-          bool tooLeft = theindex >= ((i+y)*width);
-          if(inRange && tooRight && tooLeft)
-          {
-              outRed[theindex] = redSum / numPixels;
-              outGreen[theindex] = greenSum / numPixels;
-              outBlue[theindex] = blueSum / numPixels;
-              outAlpha[theindex] = alphaSum / numPixels;
-           
-          }
-        }
-      }
-    }
-  }
 }
 
 /* convertToGray - convert the input image to grayscale
