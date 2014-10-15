@@ -84,7 +84,6 @@ void convolveImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
     }
  
     int fsize = (2.0 * radius + 1);
-    int k = 0;
     int g, h, i, j, x_R, y_R;
  
     double sumRed = 0;
@@ -192,8 +191,66 @@ void pixelate(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
               uint8_t *inAlpha,uint8_t *outRed,uint8_t *outBlue,
               uint8_t *outGreen,uint8_t *outAlpha,int pixelY,int pixelX,
               int width,int height)
-{ return;
-  		}
+{
+  if(pixelY <= 1 || pixelX <= 1){
+    int i;
+    for(i = 0; i < width*height; i++){
+      outRed[i] = inRed[i];
+      outGreen[i] = inGreen[i];
+      outBlue[i] = inBlue[i];
+      outAlpha[i] = inAlpha[i];
+    }
+    return;
+  }
+  int i, j;
+  for(i = 0; i < height; i+=pixelY)
+  {
+    for(j = 0; j < width; j+=pixelX)
+    {
+      double redSum = 0.0, greenSum = 0.0, blueSum = 0.0, alphaSum = 0.0;
+      int x, y;
+      int numPixels = 0;
+      int index = i*width + j;
+      for(y = 0; y < pixelY; y++)
+      {
+        for(x = 0; x < pixelX; x++)
+        {
+          int theindex = index + y*width + x;
+          bool inRange = theindex < (width*height);
+          bool tooRight = theindex < ((i+y)*width + width);
+          bool tooLeft = theindex >= ((i+y)*width);
+          if(inRange && tooRight  && tooLeft)
+          {
+            redSum+=inRed[theindex];
+            greenSum+=inGreen[theindex];
+            blueSum+=inBlue[theindex];
+            alphaSum+=inAlpha[index];
+            numPixels++;
+          }
+        }
+      }
+      for(y = 0; y < pixelY; y++)
+      {
+        for(x = 0; x < pixelX; x++)
+        {
+          int theindex = index + y*width + x;
+          bool inRange = theindex < (width*height);
+          bool tooRight = theindex < ((i+y)*width + width);
+          bool tooLeft = theindex >= ((i+y)*width);
+          if(inRange && tooRight && tooLeft)
+          {
+              outRed[theindex] = redSum / numPixels;
+              outGreen[theindex] = greenSum / numPixels;
+              outBlue[theindex] = blueSum / numPixels;
+              outAlpha[theindex] = alphaSum / numPixels;
+           
+          }
+        }
+      }
+    }
+  }
+}
+
 /* convertToGray - convert the input image to grayscale
  * INPUTS: inRed - pointer to the input red channel
  *         inBlue - pointer to the input blue channel
@@ -240,13 +297,9 @@ void flipImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
         for (int j = 0; j < width; j++)
         {
             outRed[i] = inRed[width-1-j];
-	    outRed[j] = inRed[height-1-i];
             outGreen[i] = inGreen[width-1-j];
-	    outGreen[j] = inGreen[height-1-i];
             outBlue[i] = inBlue[width-1-j];
-	    outBlue[j] = inBlue[height-1-i];
             outAlpha[i] = inAlpha[width-1-j];
-	    outAlpha[j] = inAlpha[height-1-i];
         }
     }
 }
