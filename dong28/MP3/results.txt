@@ -1,0 +1,47 @@
+Submission points
+********************
+Lost 0 points
+
+Compilation Results
+*********************
+STARTING PASS 1
+0 errors found in first pass.
+STARTING PASS 2
+0 errors found in second pass.
+
+Testout:
+********************
+70c70
+< R0=x0000 R1=x7FFF R2=x4019 R3=xFFFF R4=x4000 R5=x0000 R6=x0018 R7=x0490 
+---
+> R0=x0000 R1=x7FFF R2=x0000 R3=x4011 R4=x4018 R5=x0003 R6=x0006 R7=x0490 
+
+Surrealout:
+********************
+427c427
+< R0=x0000 R1=x7FFF R2=x41D5 R3=xFFFF R4=x4000 R5=x0000 R6=x01D4 R7=x0490 
+---
+> R0=x0000 R1=x7FFF R2=x0000 R3=x41D1 R4=x41D4 R5=x0003 R6=x0075 R7=x0490 
+
+Chainedout:
+*******************
+142a143,156
+> 76 00 01 02
+> 77 70 FF FF
+> 78 57 FF FF
+> 79 6F 65 FF
+> 7A 7B FF FF
+> 7B 56 FF FF
+> 7C 7D 6E 7E
+> 7D FF FF FF
+> 7E 7C FF FF
+> 7F 81 6E 80
+> 80 FF FF FF
+> 81 7F FF FF
+> 82 62 FF FF
+> 83 5C FF FF
+413c427
+< R0=x0000 R1=x7FFF R2=x41D5 R3=xFFFF R4=x4000 R5=x0000 R6=x01D4 R7=x0490 
+---
+> R0=x0000 R1=x7FFF R2=x0000 R3=x41D1 R4=x41D4 R5=x0003 R6=x0075 R7=x0490 
+

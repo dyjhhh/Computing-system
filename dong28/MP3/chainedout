@@ -20,7 +20,6 @@ PC=x0494 IR=xB1AE PSR=x0400 (ZERO)
 R0=x0000 R1=x7FFF R2=x0000 R3=x0000 R4=x0000 R5=x0000 R6=x0000 R7=x0490 
                    x0494 x0FF9 BRNZP TRAP_HALT
 Loaded "chained.obj" and set PC to x5000
-WARNING: No symbols are available.
 Loaded "prog3.obj" and set PC to x3000
 Will not use stdin for LC-3 console input during script execution.
 00 01 0E 11
