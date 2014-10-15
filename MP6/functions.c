@@ -54,44 +54,6 @@ void calculateGausFilter(double *gausFilter,double sigma)
     }    
 }
 
-/*{
-        int r = getRadius(sigma);
-        double x, y;
-        int i = 0;
-        double sum = 0;
- 
-        for(y = -r ; y <=r ; y++)
-        {
-                for(x = -r ; x <= r ; x++)
-                {
-                      
-                        gausFilter[i] = (1 / (sqrt(2 * M_PI * pow(sigma,2)))) * exp(-(pow(x, 2) + pow(y, 2)) / (2 * pow(sigma, 2)));
-                        i++;
-                }
-               
-        }
-       
-        i = 0;
-        for(y = -r ; y <=r ; y++)
-        {      
-                for (x = -r; x <= r ; x++)
-                {
-                        sum = sum + gausFilter[i];
-                        i++;
-                }
-        }
- 
-        i = 0;
-        for(y = -r ; y <=r ; y++)
-        {      
-                for (x = -r; x <= r ; x++)
-                {
-                        gausFilter[i] = gausFilter[i] / sum;
-                        i++;
-                }
-        }
- 
-}*/
 /* convolveImage - performs a convolution between a filter and image
  * INPUTS: inRed - pointer to the input red channel
  *         inBlue - pointer to the input blue channel
@@ -115,76 +77,99 @@ void convolveImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
                    uint8_t *outGreen,uint8_t *outAlpha,const double *filter,
                    int radius , int width,int height)
 {
-   
-    int size= 2*radius+1;
-    int row,column,row_checker,column_checker;  //Creates 2 sets of row/column, 1 for checking and 1 for position
  
-    double red_channel=0;
-    double blue_channel=0;
-    double green_channel=0;
-    double alpha_channel=0;
- 
-    for(row = 0; row < height; row++)           //Two outer loops hold the current position
+    if (radius < 1) //if the radius is less than 1, the output image should not be altered
     {
-        for(column = 0; column < width; column++)
-        {
-            //Resets the values for the next check
-            red_channel=0;
-            blue_channel=0;
-            green_channel=0;  
-            alpha_channel=0;
-            for(row_checker = 0; row_checker < size; row_checker++)
-            {
-                for(column_checker = 0; column_checker < size; column_checker++)
-                {
-                    if((row+row_checker-radius)<0 || (row+row_checker-radius)>=width ||  
-                    (column+column_checker-radius)<0 || (column+column_checker-radius)>=height) //Used to check if the current filter position
-                                                                                                //is within the boundary
-		      break;
-                    else        //If the current filter location is valid, then the filter is applied to it
-                    {
-                        red_channel= red_channel + inRed[width * (row + row_checker - radius) +
-                        (column + column_checker - radius)]* filter[row_checker *
-                        (size) + column_checker];
-                       
-                        blue_channel= blue_channel + inBlue[width * (row + row_checker - radius) +
-                        (column + column_checker - radius)]* filter[row_checker *
-                        (size) + column_checker];
+        return;
+    }
  
-                        green_channel= green_channel + inGreen[width * (row + row_checker - radius) +
-                        (column + column_checker - radius)]* filter[row_checker *
-                        (size) + column_checker];
-                       
-                        alpha_channel= alpha_channel + inAlpha[width * (row + row_checker - radius) +
-                        (column + column_checker - radius)]* filter[row_checker *
-                        (size) + column_checker];
+    int fsize = (2.0 * radius + 1);
+    int k = 0;
+    int g, h, i, j, x_R, y_R;
+ 
+    double sumRed = 0;
+    double sumGreen = 0;
+    double sumBlue = 0;
+    double sumAlpha = 0;
+   
+    //the following nested for loops are used to set the paratmers of x_R and y_R
+    //so that we can find calculate the new values after we apply the Gaussian
+    //filter on top of it.
+ 
+    for(j = 0; j < height; j++)                
+    {                                          
+        for(i = 0; i < width; i++)              
+        {                                      
+            for(g = 0; g < fsize; g++)          
+            {                                  
+                for(h = 0; h < fsize; h++)      
+                {                              
+                    x_R = g - radius;              
+                    y_R = h - radius;
+ 
+                    if(i + x_R < width && j + y_R < height && i + x_R >= 0 && j + y_R >= 0)
+                    {
+                        sumRed = sumRed + (inRed[(j + y_R)*width + (i + x_R)])*(filter[h*fsize + g]);        
+                        sumGreen = sumGreen + (inGreen[(j + y_R)*width + (i + x_R)])*(filter[h*fsize + g]);
+                        sumBlue = sumBlue + (inBlue[(j + y_R)*width + (i + x_R)])*(filter[h*fsize + g]);
+                        sumAlpha = sumAlpha + (inAlpha[(j + y_R)*width + (i + x_R)])*(filter[h*fsize + g]);                
                     }
+                   
                 }
+            }    
+ 
+            if(sumRed > 255) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {                  
+                sumRed = 255;
+            }    
+ 
+            if(sumRed < 0) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {
+                sumRed = 0;
             }
-           
-            //If the RBG or alpha values go out of bounds, these ifs will reset them
-            if(red_channel>255)
-                red_channel=255;
-            if(red_channel<0)
-                red_channel=0;
-            if(blue_channel>255)
-                blue_channel=255;
-            if(blue_channel<0)
-                blue_channel=0;
-            if(green_channel>255)
-                green_channel=255;
-            if(green_channel<0)
-                green_channel=0;
-            if(alpha_channel>255)
-                alpha_channel=255;
-            if(alpha_channel<0)
-                alpha_channel=0;
-           
-            outRed[row * width + column] = red_channel;        //Puts the color value into the output array
-            outBlue[row * width + column] = blue_channel;
-            outGreen[row * width + column] = green_channel;
-            outAlpha[row * width + column] = alpha_channel;
-          }  
+ 
+            if(sumGreen > 255) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {
+                sumGreen = 255;
+            }
+ 
+            if(sumGreen < 0) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {
+                sumGreen = 0;
+            }
+ 
+            if(sumBlue > 255) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {
+                sumBlue = 255;
+            }    
+ 
+            if(sumBlue < 0) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {
+                sumBlue = 0;
+            }
+ 
+            if(sumAlpha > 255) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {
+                sumAlpha = 255;
+            }
+ 
+            if(sumAlpha < 0) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {
+                sumAlpha = 0;
+            }  
+ 
+            //the output values we want are set equal to the updated values of sumRed/Green/Blue/Alpha, if they are outside of 0~255.
+            outRed[i + j*width] = sumRed;
+            outGreen[i + j*width] = sumGreen;
+            outBlue[i + j*width] = sumBlue;
+            outAlpha[i + j*width] = sumAlpha;
+ 
+            //reset values for next calculations
+            sumRed = 0;                        
+            sumGreen = 0;
+            sumBlue = 0;
+            sumAlpha = 0;                            
+        }
     }
 }
 
@@ -208,71 +193,7 @@ void pixelate(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
               uint8_t *outGreen,uint8_t *outAlpha,int pixelY,int pixelX,
               int width,int height)
 { return;
-  		/* int rows;
-        int columns;
-        int new_rows;
-        int new_columns;
-<<<<<<< .mine
-        int r = getRadius(radius);
-=======
-        int pixelateSize;
->>>>>>> .r14228
- 
-        double Red_val = 0;
-        double Blue_val = 0;
-        double Green_val = 0;
-        double Alpha_val = 0;
-        
-        for(rows=0; rows < height; rows += pixelateSize)
-        {
-<<<<<<< .mine
-                for(columns = 0; columns < width ; columns++)
-                {
-                 
-                  Red_val = 0;
-                  Green_val = 0;
-                  Blue_val = 0;
-                  Alpha_val = 0;
-                        for(new_rows = 0 ; new_rows < 2 * r + 1 ; new_rows++)
-                        {
-                                for(new_columns = 0 ; new_columns < 2 * r + 1 ; new_columns++)
-                                {
-                                        if( (rows + new_rows - r) < 0 || (rows + new_rows - r) >= width || (columns + new_columns - r) < 0 || (columns + new_columns - r) >= height)
-                                                break;
-                                        else
-                                        {
-                                                Red_val = Red_val + inRed[(rows + new_rows - r) * width + (columns + new_columns - r)] * filter[new_rows * (2 * r + 1) + new_columns];
-                                                Blue_val = Blue_val + inBlue[(rows + new_rows - r) * width + (columns + new_columns - r)] * filter[new_rows * (2 * r + 1) + new_columns];
-                                                Green_val = Green_val + inGreen[(rows + new_rows - r) * width + (columns + new_columns - r)] * filter[new_rows * (2 * r + 1) + new_columns];
-                                                Alpha_val = Alpha_val + inAlpha[(rows + new_rows - r) * width + (columns + new_columns - r)] * filter[new_rows * (2 * r + 1) + new_columns];
-                                        }
-                                }
-                        }
- 
-                       if(Red_val > 255)
-                               Red_val = 255;
-                       if(Red_val < 0)
-                               Red_val = 0;
-                       if(Green_val > 255)
-                               Green_val = 255;
-                       if(Green_val < 0)
-                               Green_val = 0;
-                       if(Blue_val > 255)
-                               Blue_val = 255;
-                       if(Blue_val < 0)
-                               Blue_val = 0;
-                       if
-                               Alpha_
-        	for(columns = 0; columns < width, columns += pixelateSize)
-        	{	pixelX = pixelateSize/2;
-        		pixelY = pixelateSize/2;
-        		
-        		while (rows + pixelX >= width) pixelX--;
-        		while (columns + pixelY >= height) pixelY--;
-        		
-        		
-        	} */
-}
+  		}
 /* convertToGray - convert the input image to grayscale
  * INPUTS: inRed - pointer to the input red channel
  *         inBlue - pointer to the input blue channel
@@ -312,9 +233,21 @@ void convertToGray(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
 void flipImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
                uint8_t *inAlpha,uint8_t *outRed,uint8_t *outBlue,
                uint8_t *outGreen,uint8_t *outAlpha,int height,int width)
-{
-  return;
+
+ {
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            outRed[i] = inRed[width-1-j, height-1-i];
+            outGreen[i] = inGreen[width-1-j, height-1-i];
+            outBlue[i] = inBlue[width-1-j, height-1-i];
+            outAlpha[i] = inAlpha[width-1-j, height-1-i];
+        }
+    }
 }
+ 
+
 
 /* invertImage - inverts the colors of the image
  * INPUTS: inRed - pointer to the input red channel
@@ -333,8 +266,33 @@ void invertImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
                  uint8_t *inAlpha,uint8_t *outRed,uint8_t *outBlue,
                  uint8_t *outGreen,uint8_t *outAlpha,int height,int width)
 {
-  return;
+  
+    //initialize variables
+    int i, j;
+    double sumRed = 0;
+    double sumGreen = 0;
+    double sumBlue = 0;
+    double sumAlpha = 0;
+   
+    //set up double nested for loop
+    for(j = 0; j < height; j++)                        
+    {                                                  
+        for(i = 0; i < width; i++)                    
+        {  
+            sumRed = (inRed[(j)*width + (i)]);          
+            sumGreen = (inGreen[(j)*width + (i)]);
+            sumBlue = (inBlue[(j)*width + (i)]);
+            sumAlpha = (inAlpha[(j)*width + (i)]);      
+                                     
+            //subtract 255 from sumRed, sumGreen, and sumBlue values, effectively inverting them.    
+            outRed[i + j*width] = 255 - sumRed;
+            outGreen[i + j*width] = 255 - sumGreen;
+            outBlue[i + j*width] = 255 - sumBlue;
+            outAlpha[i + j*width] = sumAlpha;                        
+        }
+    }
 }
+
 
 
 /* colorDodge - blends the bottom layer with the top layer
