@@ -239,10 +239,14 @@ void flipImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
     {
         for (int j = 0; j < width; j++)
         {
-            outRed[i] = inRed[width-1-j, height-1-i];
-            outGreen[i] = inGreen[width-1-j, height-1-i];
-            outBlue[i] = inBlue[width-1-j, height-1-i];
-            outAlpha[i] = inAlpha[width-1-j, height-1-i];
+            outRed[i] = inRed[width-1-j];
+	    outRed[j] = inRed[height-1-i];
+            outGreen[i] = inGreen[width-1-j];
+	    outGreen[j] = inGreen[height-1-i];
+            outBlue[i] = inBlue[width-1-j];
+	    outBlue[j] = inBlue[height-1-i];
+            outAlpha[i] = inAlpha[width-1-j];
+	    outAlpha[j] = inAlpha[height-1-i];
         }
     }
 }
