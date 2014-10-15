@@ -98,8 +98,8 @@ void convolveImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
             {                                  
                 for(h = 0; h < fsize; h++)      
                 {                              
-                    x_R = g - r;              
-                    y_R = h - r;
+                    x_R = g - radius;              
+                    y_R = h - radius;
  
                     if(i + x_R < width && j + y_R < height && i + x_R >= 0 && j + y_R >= 0)
                     {
