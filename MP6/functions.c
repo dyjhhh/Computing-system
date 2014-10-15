@@ -174,52 +174,65 @@ void pixelate(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
               uint8_t *inAlpha,uint8_t *outRed,uint8_t *outBlue,
               uint8_t *outGreen,uint8_t *outAlpha,int pixelY,int pixelX,
               int width,int height)
-{ int block_size = pixelX * pixelY;
-
-    int g, h, x, y;
- 
-    double sumRed = 0;
-    double sumGreen = 0;
-    double sumBlue = 0;
-    double sumAlpha = 0;
-    int total = 0;
-   
-    //the following nested for loops are used to set the paratmers of x_R and y_R
-    //so that we can find calculate the new values after we apply the Gaussian
-    //filter on top of it.
- 
-    for(y = 0; y < height; y+= pixelY)                
-    {                                          
-        for(x = 0; x < width; x+= pixelX)              
-        {                                      
-            for(g = 0; g < pixelY; ++g)          
-            {                                  
-                for(h = 0; h < pixelX; ++h)      
-                {                              
- 
-                    if(x + h < width && y + g < height && x + h >= 0 && y + g >= 0)
-                    {
-                        sumRed = sumRed + (inRed[(i + h)*width + (j + g)])*(filter[h*fsize + g]);        
-                        sumGreen = sumGreen + (inGreen[(i + h)*width + (j + g)])*(filter[h*fsize + g]);
-                        sumBlue = sumBlue + (inBlue[(i + h)*width + (j + g)])*(filter[h*fsize + g]);
-                        sumAlpha = sumAlpha + (inAlpha[(i + h)*width + (j + g)])*(filter[h*fsize + g]);
-                        total++;                
-                    }
-                             //the output values we want are set equal to the updated values of sumRed/Green/Blue/Alpha, if they are outside of 0~255.
-            outRed[i + j*width] = sumRed;
-            outGreen[i + j*width] = sumGreen;
-            outBlue[i + j*width] = sumBlue;
-            outAlpha[i + j*width] = sumAlpha;
- 
-            //reset values for next calculations
-            sumRed = 0;                        
-            sumGreen = 0;
-            sumBlue = 0;
-            sumAlpha = 0;    
-                }
-            }    
- 
-  		}
+{
+  if(pixelY <= 1 || pixelX <= 1){
+    int i;
+    for(i = 0; i < width*height; i++){
+      outRed[i] = inRed[i];
+      outGreen[i] = inGreen[i];
+      outBlue[i] = inBlue[i];
+      outAlpha[i] = inAlpha[i];
+    }
+    return;
+  }
+  int i, j;
+  for(i = 0; i < height; i+=pixelY)
+  {
+    for(j = 0; j < width; j+=pixelX)
+    {
+      double redSum = 0.0, greenSum = 0.0, blueSum = 0.0, alphaSum = 0.0;
+      int x, y;
+      int numPixels = 0;
+      int index = i*width + j;
+      for(y = 0; y < pixelY; y++)
+      {
+        for(x = 0; x < pixelX; x++)
+        {
+          int theindex = index + y*width + x;
+          bool inRange = theindex < (width*height);
+          bool tooRight = theindex < ((i+y)*width + width);
+          bool tooLeft = theindex >= ((i+y)*width);
+          if(inRange && tooRight  && tooLeft)
+          {
+            redSum+=inRed[theindex];
+            greenSum+=inGreen[theindex];
+            blueSum+=inBlue[theindex];
+            alphaSum+=inAlpha[index];
+            numPixels++;
+          }
+        }
+      }
+      for(y = 0; y < pixelY; y++)
+      {
+        for(x = 0; x < pixelX; x++)
+        {
+          int theindex = index + y*width + x;
+          bool inRange = theindex < (width*height);
+          bool tooRight = theindex < ((i+y)*width + width);
+          bool tooLeft = theindex >= ((i+y)*width);
+          if(inRange && tooRight && tooLeft)
+          {
+              outRed[theindex] = redSum / numPixels;
+              outGreen[theindex] = greenSum / numPixels;
+              outBlue[theindex] = blueSum / numPixels;
+              outAlpha[theindex] = alphaSum / numPixels;
+           
+          }
+        }
+      }
+    }
+  }
+}
 /* convertToGray - convert the input image to grayscale
  * INPUTS: inRed - pointer to the input red channel
  *         inBlue - pointer to the input blue channel
