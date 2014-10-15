@@ -140,12 +140,7 @@ void convolveImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
                     if((row+row_checker-radius)<0 || (row+row_checker-radius)>=width ||  
                     (column+column_checker-radius)<0 || (column+column_checker-radius)>=height) //Used to check if the current filter position
                                                                                                 //is within the boundary
-                    {
-                        red_channel+=0;
-                        blue_channel+=0;
-                        green_channel+=0;
-                        alpha_channel+=0;
-                    }
+		      break;
                     else        //If the current filter location is valid, then the filter is applied to it
                     {
                         red_channel= red_channel + inRed[width * (row + row_checker - radius) +
