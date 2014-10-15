@@ -77,7 +77,7 @@ void convolveImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
                    uint8_t *outGreen,uint8_t *outAlpha,const double *filter,
                    int radius , int width,int height)
 {
-   
+ 
     int size= 2*radius+1;
     int row,column,row_checker,column_checker;  //Creates 2 sets of row/column, 1 for checking and 1 for position
  
@@ -155,6 +155,71 @@ void convolveImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
     }
 }
 
+/* pixelate - pixelates the image
+ * INPUTS: inRed - pointer to the input red channel
+ *         inBlue - pointer to the input blue channel
+ *         inGreen - pointer to the input green channel
+ *         inAlpha - pointer to the input alpha channel
+ *         pixelateY - height of the block
+ *         pixelateX - width of the block
+ *         width - width of the input image
+ *         height - height of the input image
+ * OUTPUTS: outRed - pointer to the output red channel
+ *          outBlue - pointer to the output blue channel
+ *          outGreen - pointer to the output green channel
+ *          outAlpha - pointer to the output alpha channel
+ * RETURN VALUES: none
+ */
+void pixelate(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
+              uint8_t *inAlpha,uint8_t *outRed,uint8_t *outBlue,
+              uint8_t *outGreen,uint8_t *outAlpha,int pixelY,int pixelX,
+              int width,int height)
+{ int block_size = pixelX * pixelY;
+
+    int g, h, x, y;
+ 
+    double sumRed = 0;
+    double sumGreen = 0;
+    double sumBlue = 0;
+    double sumAlpha = 0;
+    int total = 0;
+   
+    //the following nested for loops are used to set the paratmers of x_R and y_R
+    //so that we can find calculate the new values after we apply the Gaussian
+    //filter on top of it.
+ 
+    for(y = 0; y < height; y+= pixelY)                
+    {                                          
+        for(x = 0; x < width; x+= pixelX)              
+        {                                      
+            for(g = 0; g < pixelY; ++g)          
+            {                                  
+                for(h = 0; h < pixelX; ++h)      
+                {                              
+ 
+                    if(x + h < width && y + g < height && x + h >= 0 && y + g >= 0)
+                    {
+                        sumRed = sumRed + (inRed[(i + h)*width + (j + g)])*(filter[h*fsize + g]);        
+                        sumGreen = sumGreen + (inGreen[(i + h)*width + (j + g)])*(filter[h*fsize + g]);
+                        sumBlue = sumBlue + (inBlue[(i + h)*width + (j + g)])*(filter[h*fsize + g]);
+                        sumAlpha = sumAlpha + (inAlpha[(i + h)*width + (j + g)])*(filter[h*fsize + g]);
+                        total++;                
+                    }
+                             //the output values we want are set equal to the updated values of sumRed/Green/Blue/Alpha, if they are outside of 0~255.
+            outRed[i + j*width] = sumRed;
+            outGreen[i + j*width] = sumGreen;
+            outBlue[i + j*width] = sumBlue;
+            outAlpha[i + j*width] = sumAlpha;
+ 
+            //reset values for next calculations
+            sumRed = 0;                        
+            sumGreen = 0;
+            sumBlue = 0;
+            sumAlpha = 0;    
+                }
+            }    
+ 
+  		}
 /* convertToGray - convert the input image to grayscale
  * INPUTS: inRed - pointer to the input red channel
  *         inBlue - pointer to the input blue channel
