@@ -72,104 +72,47 @@ void calculateGausFilter(double *gausFilter,double sigma)
  
  
   
-void convolveImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
-                   uint8_t *inAlpha, uint8_t *outRed,uint8_t *outBlue,
-                   uint8_t *outGreen,uint8_t *outAlpha,const double *filter,
-                   int radius , int width,int height)
 {
+  if(radius < 1)
+    return;
+  int i ,j;
+  for(i = 0; i < height; i++){
+    for(j = 0; j < width; j++){
+      int index = i*j;
+      double redSum = 0, greenSum = 0, blueSum = 0;
+      int colindex, rowindex;
+      int filterindex = 0;
+      for(colindex = -radius; colindex <= radius; colindex++){
+        for(rowindex = -radius; rowindex <= radius; rowindex++){
+          if(i+colindex >= 0 && i+colindex <=255 && j+rowindex >= 0 && j+colindex <= 255){
+            redSum+=(inRed[(i+colindex)*(j+rowindex)] * filter[filterindex]);
+            greenSum+=(inGreen[(i+colindex)*(j+rowindex)] * filter[filterindex]);
+            blueSum+=(inBlue[(i+colindex)*(j+rowindex)] * filter[filterindex]);
  
-    if (radius < 1) //if the radius is less than 1, the output image should not be altered
-    {
-        return;
-    }
+            redSum = Check(redSum);
+            greenSum = Check(greenSum);
+            blueSum = Check(blueSum);
+          }
  
-    int fsize = (2.0 * radius + 1);
-    int g, h, i, j, x_R, y_R;
+          filterindex++;
  
-    double sumRed = 0;
-    double sumGreen = 0;
-    double sumBlue = 0;
-    double sumAlpha = 0;
-   
-    //the following nested for loops are used to set the paratmers of x_R and y_R
-    //so that we can find calculate the new values after we apply the Gaussian
-    //filter on top of it.
- 
-    for(j = 0; j < height; j++)                
-    {                                          
-        for(i = 0; i < width; i++)              
-        {                                      
-            for(g = 0; g < fsize; g++)          
-            {                                  
-                for(h = 0; h < fsize; h++)      
-                {                              
-                    x_R = g - radius;              
-                    y_R = h - radius;
- 
-                    if(i + x_R < width && j + y_R < height && i + x_R >= 0 && j + y_R >= 0)
-                    {
-                        sumRed = sumRed + (inRed[(j + y_R)*width + (i + x_R)])*(filter[h*fsize + g]);        
-                        sumGreen = sumGreen + (inGreen[(j + y_R)*width + (i + x_R)])*(filter[h*fsize + g]);
-                        sumBlue = sumBlue + (inBlue[(j + y_R)*width + (i + x_R)])*(filter[h*fsize + g]);
-                        sumAlpha = sumAlpha + (inAlpha[(j + y_R)*width + (i + x_R)])*(filter[h*fsize + g]);                
-                    }
-                   
-                }
-            }    
- 
-            if(sumRed > 255) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
-            {                  
-                sumRed = 255;
-            }    
- 
-            if(sumRed < 0) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
-            {
-                sumRed = 0;
-            }
- 
-            if(sumGreen > 255) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
-            {
-                sumGreen = 255;
-            }
- 
-            if(sumGreen < 0) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
-            {
-                sumGreen = 0;
-            }
- 
-            if(sumBlue > 255) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
-            {
-                sumBlue = 255;
-            }    
- 
-            if(sumBlue < 0) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
-            {
-                sumBlue = 0;
-            }
- 
-            if(sumAlpha > 255) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
-            {
-                sumAlpha = 255;
-            }
- 
-            if(sumAlpha < 0) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
-            {
-                sumAlpha = 0;
-            }  
- 
-            //the output values we want are set equal to the updated values of sumRed/Green/Blue/Alpha, if they are outside of 0~255.
-            outRed[i + j*width] = sumRed;
-            outGreen[i + j*width] = sumGreen;
-            outBlue[i + j*width] = sumBlue;
-            outAlpha[i + j*width] = sumAlpha;
- 
-            //reset values for next calculations
-            sumRed = 0;                        
-            sumGreen = 0;
-            sumBlue = 0;
-            sumAlpha = 0;                            
         }
+      }
+      outRed[index] = redSum;
+      outGreen[index] = greenSum;
+      outBlue[index] = blueSum;
+      outAlpha[index] = inAlpha[index];
+ 
     }
+  }
+ 
+}
+int Check(int value){
+  if(value > 255)
+    return 255;
+  else if(value < 0)
+    return 0;
+  else return value;
 }
 
 /* pixelate - pixelates the image
