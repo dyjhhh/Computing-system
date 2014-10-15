@@ -77,84 +77,96 @@ void convolveImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
                    uint8_t *outGreen,uint8_t *outAlpha,const double *filter,
                    int radius , int width,int height)
 {
+  
+    int fsize = (2.0 * radius + 1);
+    int g, h, i, j, x_R, y_R;
  
-    int size= 2*radius+1;
-    int row,column,row_checker,column_checker;  //Creates 2 sets of row/column, 1 for checking and 1 for position
+    double sumRed = 0;
+    double sumGreen = 0;
+    double sumBlue = 0;
+    double sumAlpha = 0;
+   
+    //the following nested for loops are used to set the paratmers of x_R and y_R
+    //so that we can find calculate the new values after we apply the Gaussian
+    //filter on top of it.
  
-    double red_channel=0;
-    double blue_channel=0;
-    double green_channel=0;
-    double alpha_channel=0;
+    for(j = 0; j < height; j++)                
+    {                                          
+        for(i = 0; i < width; i++)              
+        {                                      
+            for(g = 0; g < fsize; g++)          
+            {                                  
+                for(h = 0; h < fsize; h++)      
+                {                              
+                    x_R = g - r;              
+                    y_R = h - r;
  
-    for(row = 0; row < height; row++)           //Two outer loops hold the current position
-    {
-        for(column = 0; column < width; column++)
-        {
-            //Resets the values for the next check
-            red_channel=0;
-            blue_channel=0;
-            green_channel=0;  
-            alpha_channel=0;
-            for(row_checker = 0; row_checker < size; row_checker++)
-            {
-                for(column_checker = 0; column_checker < size; column_checker++)
-                {
-                    if((row+row_checker-radius)<0 || (row+row_checker-radius)>=width ||  
-                    (column+column_checker-radius)<0 || (column+column_checker-radius)>=height) //Used to check if the current filter position
-                                                                                                //is within the boundary
+                    if(i + x_R < width && j + y_R < height && i + x_R >= 0 && j + y_R >= 0)
                     {
-                        red_channel+=0;
-                        blue_channel+=0;
-                        green_channel+=0;
-                        alpha_channel+=0;
+                        sumRed = sumRed + (inRed[(j + y_R)*width + (i + x_R)])*(filter[h*fsize + g]);        
+                        sumGreen = sumGreen + (inGreen[(j + y_R)*width + (i + x_R)])*(filter[h*fsize + g]);
+                        sumBlue = sumBlue + (inBlue[(j + y_R)*width + (i + x_R)])*(filter[h*fsize + g]);
+                        sumAlpha = sumAlpha + (inAlpha[(j + y_R)*width + (i + x_R)])*(filter[h*fsize + g]);                
                     }
-                    else        //If the current filter location is valid, then the filter is applied to it
-                    {
-                        red_channel= red_channel + inRed[width * (row + row_checker - radius) +
-                        (column + column_checker - radius)]* filter[row_checker *
-                        (size) + column_checker];
-                       
-                        blue_channel= blue_channel + inBlue[width * (row + row_checker - radius) +
-                        (column + column_checker - radius)]* filter[row_checker *
-                        (size) + column_checker];
- 
-                        green_channel= green_channel + inGreen[width * (row + row_checker - radius) +
-                        (column + column_checker - radius)]* filter[row_checker *
-                        (size) + column_checker];
-                       
-                        alpha_channel= alpha_channel + inAlpha[width * (row + row_checker - radius) +
-                        (column + column_checker - radius)]* filter[row_checker *
-                        (size) + column_checker];
-                    }
+                   
                 }
+            }    
+ 
+            if(sumRed > 255) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {                  
+                sumRed = 255;
+            }    
+ 
+            if(sumRed < 0) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {
+                sumRed = 0;
             }
-           
-            //If the RBG or alpha values go out of bounds, these ifs will reset them
-            if(red_channel>255)
-                red_channel=255;
-            if(red_channel<0)
-                red_channel=0;
-            if(blue_channel>255)
-                blue_channel=255;
-            if(blue_channel<0)
-                blue_channel=0;
-            if(green_channel>255)
-                green_channel=255;
-            if(green_channel<0)
-                green_channel=0;
-            if(alpha_channel>255)
-                alpha_channel=255;
-            if(alpha_channel<0)
-                alpha_channel=0;
-           
-            outRed[row * width + column] = red_channel;        //Puts the color value into the output array
-            outBlue[row * width + column] = blue_channel;
-            outGreen[row * width + column] = green_channel;
-            outAlpha[row * width + column] = alpha_channel;
-          }  
+ 
+            if(sumGreen > 255) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {
+                sumGreen = 255;
+            }
+ 
+            if(sumGreen < 0) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {
+                sumGreen = 0;
+            }
+ 
+            if(sumBlue > 255) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {
+                sumBlue = 255;
+            }    
+ 
+            if(sumBlue < 0) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {
+                sumBlue = 0;
+            }
+ 
+            if(sumAlpha > 255) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {
+                sumAlpha = 255;
+            }
+ 
+            if(sumAlpha < 0) //check that the values are valid and between 0-255, if not, we set it to 0 or 255 depending on the value
+            {
+                sumAlpha = 0;
+            }  
+ 
+            //the output values we want are set equal to the updated values of sumRed/Green/Blue/Alpha, if they are outside of 0~255.
+            outRed[i + j*width] = sumRed;
+            outGreen[i + j*width] = sumGreen;
+            outBlue[i + j*width] = sumBlue;
+            outAlpha[i + j*width] = sumAlpha;
+ 
+            //reset values for next calculations
+            sumRed = 0;                        
+            sumGreen = 0;
+            sumBlue = 0;
+            sumAlpha = 0;                            
+        }
     }
 }
-
+ 
 /* pixelate - pixelates the image
  * INPUTS: inRed - pointer to the input red channel
  *         inBlue - pointer to the input blue channel
@@ -170,6 +182,9 @@ void convolveImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
  *          outAlpha - pointer to the output alpha channel
  * RETURN VALUES: none
  */
+ 
+ 
+ 
 void pixelate(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
               uint8_t *inAlpha,uint8_t *outRed,uint8_t *outBlue,
               uint8_t *outGreen,uint8_t *outAlpha,int pixelY,int pixelX,
