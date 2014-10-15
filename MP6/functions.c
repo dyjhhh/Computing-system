@@ -77,46 +77,82 @@ void convolveImage(uint8_t *inRed,uint8_t *inBlue,uint8_t *inGreen,
                    uint8_t *outGreen,uint8_t *outAlpha,const double *filter,
                    int radius , int width,int height)
 {
-  if(radius < 1)
-    return;
-  int i ,j;
-  for(i = 0; i < height; i++){
-    for(j = 0; j < width; j++){
-      int index = i*j;
-      double redSum = 0, greenSum = 0, blueSum = 0;
-      int colindex, rowindex;
-      int filterindex = 0;
-      for(colindex = -radius; colindex <= radius; colindex++){
-        for(rowindex = -radius; rowindex <= radius; rowindex++){
-          if(i+colindex >= 0 && i+colindex <=255 && j+rowindex >= 0 && j+colindex <= 255){
-            redSum+=(inRed[(i+colindex)*(j+rowindex)] * filter[filterindex]);
-            greenSum+=(inGreen[(i+colindex)*(j+rowindex)] * filter[filterindex]);
-            blueSum+=(inBlue[(i+colindex)*(j+rowindex)] * filter[filterindex]);
+   
+    int size= 2*radius+1;
+    int row,column,row_checker,column_checker;  //Creates 2 sets of row/column, 1 for checking and 1 for position
  
-            redSum = Check(redSum);
-            greenSum = Check(greenSum);
-            blueSum = Check(blueSum);
-          }
+    double red_channel=0;
+    double blue_channel=0;
+    double green_channel=0;
+    double alpha_channel=0;
  
-          filterindex++;
+    for(row = 0; row < height; row++)           //Two outer loops hold the current position
+    {
+        for(column = 0; column < width; column++)
+        {
+            //Resets the values for the next check
+            red_channel=0;
+            blue_channel=0;
+            green_channel=0;  
+            alpha_channel=0;
+            for(row_checker = 0; row_checker < size; row_checker++)
+            {
+                for(column_checker = 0; column_checker < size; column_checker++)
+                {
+                    if((row+row_checker-radius)<0 || (row+row_checker-radius)>=width ||  
+                    (column+column_checker-radius)<0 || (column+column_checker-radius)>=height) //Used to check if the current filter position
+                                                                                                //is within the boundary
+                    {
+                        red_channel+=0;
+                        blue_channel+=0;
+                        green_channel+=0;
+                        alpha_channel+=0;
+                    }
+                    else        //If the current filter location is valid, then the filter is applied to it
+                    {
+                        red_channel= red_channel + inRed[width * (row + row_checker - radius) +
+                        (column + column_checker - radius)]* filter[row_checker *
+                        (size) + column_checker];
+                       
+                        blue_channel= blue_channel + inBlue[width * (row + row_checker - radius) +
+                        (column + column_checker - radius)]* filter[row_checker *
+                        (size) + column_checker];
  
-        }
-      }
-      outRed[index] = redSum;
-      outGreen[index] = greenSum;
-      outBlue[index] = blueSum;
-      outAlpha[index] = inAlpha[index];
- 
+                        green_channel= green_channel + inGreen[width * (row + row_checker - radius) +
+                        (column + column_checker - radius)]* filter[row_checker *
+                        (size) + column_checker];
+                       
+                        alpha_channel= alpha_channel + inAlpha[width * (row + row_checker - radius) +
+                        (column + column_checker - radius)]* filter[row_checker *
+                        (size) + column_checker];
+                    }
+                }
+            }
+           
+            //If the RBG or alpha values go out of bounds, these ifs will reset them
+            if(red_channel>255)
+                red_channel=255;
+            if(red_channel<0)
+                red_channel=0;
+            if(blue_channel>255)
+                blue_channel=255;
+            if(blue_channel<0)
+                blue_channel=0;
+            if(green_channel>255)
+                green_channel=255;
+            if(green_channel<0)
+                green_channel=0;
+            if(alpha_channel>255)
+                alpha_channel=255;
+            if(alpha_channel<0)
+                alpha_channel=0;
+           
+            outRed[row * width + column] = red_channel;        //Puts the color value into the output array
+            outBlue[row * width + column] = blue_channel;
+            outGreen[row * width + column] = green_channel;
+            outAlpha[row * width + column] = alpha_channel;
+          }  
     }
-  }
- 
-}
-int Check(int value){
-  if(value > 255)
-    return 255;
-  else if(value < 0)
-    return 0;
-  else return value;
 }
 
 /* convertToGray - convert the input image to grayscale
