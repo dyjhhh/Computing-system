@@ -1,0 +1,4 @@
+Problem 1 Comments
+know how to use loop
+Problem 2 Comments
+str/ld/ldr. Did not update pointers correctly
