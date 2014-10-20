@@ -1,0 +1,24 @@
+Submission points
+********************
+Lost 0 points
+
+******** Compilation Results: ********
+gcc -g -Wall -Werror -Wextra -c main.c
+gcc  -c codebreaker.c
+gcc -g -Wall -Werror -Wextra main.o codebreaker.o -o mp5
+
+******** OUTPUT 1 DIFF ********
+Outputs differ see testFiles/diff1
+<your output
+>gold output
+
+******** OUTPUT 2 DIFF ********
+Outputs differ see testFiles/diff2
+<your output
+>gold output
+
+******** OUTPUT 3 DIFF ********
+Outputs differ see testFiles/diff3
+<your output
+>gold output
+
