@@ -1,0 +1,2 @@
+NetID,Binary Conversion (15),Octal Conversion (15),Decimal Conversion (15),Hex Conversion (15),Error on invalid conversion (10),Uses switch statement (10),Intro paragraph (5),Code commented (15),Points lost of late submission,Challenge pts,Total,Comments
+dong28,0,0,0,0,0,10,5,15,0,,30,Code does not compile

@@ -7,9 +7,9 @@ mp4: main.o printBinary.o
 main.o: main.c
 	$(CC) $(CFLAGS) -c main.c
 
-#Uncomment to build your printBinary.c file if you chose to do the challenge
-printBinary.o: printBinary.c
-	$(CC) $(CFLAGS) -c printBinary.c
+# Uncomment to build your printBinary.c file if you chose to do the challenge
+# printBinary.o: printBinary.c
+#	$(CC) $(CFLAGS) -c printBinary.c
 
 clean:
 	rm -f main.o mp4

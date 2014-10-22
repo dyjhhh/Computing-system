@@ -1,0 +1,16 @@
+Submission points
+********************
+Lost 0 points
+
+***** Compilation Results: their Makefile*****
+gcc -g -Wall -Werror -Wextra -c main.c
+main.c: In function ‘convert’:
+main.c:46: error: conflicting types for ‘printBinary’
+printBinary.h:6: note: previous declaration of ‘printBinary’ was here
+make: *** [main.o] Error 1
+***** Compilation Results: our Makefile our printBinary.o *****
+gcc -g -Wall -Werror -Wextra -c main.c
+main.c: In function ‘convert’:
+main.c:46: error: conflicting types for ‘printBinary’
+printBinary.h:6: note: previous declaration of ‘printBinary’ was here
+make: *** [main.o] Error 1
