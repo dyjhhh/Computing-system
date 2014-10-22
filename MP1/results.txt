@@ -1,0 +1,31 @@
+Submission points
+********************
+Lost 0 points
+
+Compilation Results
+********************
+STARTING PASS 1
+0 errors found in first pass.
+STARTING PASS 2
+0 errors found in second pass.
+
+Testoneout diff:
+********************
+56c56
+< R0=x0000 R1=x7FFF R2=x3F1A R3=x0000 R4=x0004 R5=x0004 R6=x0000 R7=x0490 
+---
+> R0=x0000 R1=x7FFF R2=x001B R3=x0000 R4=x0004 R5=x0004 R6=x0000 R7=x0490 
+
+Testtwoout diff:
+********************
+56c56
+< R0=x0000 R1=x7FFF R2=x3F1A R3=x0000 R4=x0004 R5=x0004 R6=x0000 R7=x0490 
+---
+> R0=x0000 R1=x7FFF R2=x001B R3=x0000 R4=x0004 R5=x0004 R6=x0000 R7=x0490 
+
+Testthreeout diff:
+********************
+56c56
+< R0=x0000 R1=x7FFF R2=x3F1A R3=x0000 R4=x0004 R5=x0004 R6=x0000 R7=x0490 
+---
+> R0=x0000 R1=x7FFF R2=x001B R3=x0000 R4=x0004 R5=x0004 R6=x0000 R7=x0490 
