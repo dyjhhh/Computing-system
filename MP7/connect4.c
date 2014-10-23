@@ -10,13 +10,16 @@
  */
 int playAgain(char *str, char *again)
 {
-	if ((str[0] == 'Y' || str[0] == 'y' || str[0] == 'N' || str[0] == 'n')
-		&& str[1] == '\n')
+  if ((str[0] == 'Y' || str[0] == 'y')&& str[1] == '\n'){
+	  return 1;
+	}
+  else  if ((str[0] == 'n' || str[0] == 'N') && str[1] == '\n'){		*again= 1;
+		/*if user enter N or n, make *again=1 so main.c will end the function*/
 		return 1;
-	printf("Invalid input.\n");
+	    }
+	  printf("Invalid input.\n");
 	return 0;
 }
-
 /*
  * makeMove - modifies the board depending on the player's move
  * INPUTS: col1-7: pointers to the columns of the board
@@ -144,7 +147,6 @@ void buildBoard(int *col1, int *col2, int *col3, int *col4, int *col5, int *col6
 			printf(" | %c %c %c %c %c %c %c |\n",
 			col1[i], col2[i], col3[i], col4[i], col5[i], col6[i], col7[i]);
 		if (i == 6)
-		;
 			printf("  ---------------\n\n");
 	}
 }
