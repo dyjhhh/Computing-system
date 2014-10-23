@@ -87,36 +87,39 @@ void checkWin(int *col1, int *col2, int *col3, int *col4, int *col5, int *col6,
 	int i;
 
 	for (i = 6; i>0; --i) { //for horizontal
-		if ((col1[i] == XorO || col2[i] == XorO || col3[i] == XorO || col4[i] == XorO)
-		&& (col5[i] == XorO || col2[i] == XorO || col3[i] == XorO || col4[i] == XorO)
-		&& (col5[i] == XorO || col6[i] == XorO || col3[i] == XorO || col4[i] == XorO)
-		&& (col5[i] == XorO || col6[i] == XorO || col7[i] == XorO || col4[i] == XorO)) {
+		if ((col1[i] == XorO && col2[i] == XorO && col3[i] == XorO && col4[i] == XorO)
+			|| (col5[i] == XorO && col2[i] == XorO && col3[i] == XorO && col4[i] == XorO)
+			|| (col5[i] == XorO && col6[i] == XorO && col3[i] == XorO && col4[i] == XorO)
+			|| (col5[i] == XorO && col6[i] == XorO && col7[i] == XorO && col4[i] == XorO)) {
 			*win = 1;
 		}
 	}
 	for (i = 6; i>2; --i) {
 		// for vertical
-		if ((col1[i] == XorO || col1[i - 1] == XorO || col1[i - 2] == XorO || col1[i - 3] == XorO)
-		&& (col2[i] == XorO || col2[i - 1] == XorO || col2[i - 2] == XorO || col2[i - 3] == XorO)
-		&& (col3[i] == XorO || col3[i - 1] == XorO || col3[i - 2] == XorO || col3[i - 3] == XorO)
-		&& (col4[i] == XorO || col4[i - 1] == XorO || col4[i - 2] == XorO || col4[i - 3] == XorO)
-		&& (col5[i] == XorO || col5[i - 1] == XorO || col5[i - 2] == XorO || col5[i - 3] == XorO)
-		&& (col6[i] == XorO || col6[i - 1] == XorO || col6[i - 2] == XorO || col6[i - 3] == XorO)
-		&& (col7[i] == XorO || col7[i - 1] == XorO || col7[i - 2] == XorO || col7[i - 3] == XorO)) {
+		if ((col1[i] == XorO && col1[i - 1] == XorO && col1[i - 2] == XorO && col1[i - 3] == XorO)
+			|| (col2[i] == XorO && col2[i - 1] == XorO && col2[i - 2] == XorO && col2[i - 3] == XorO)
+			|| (col3[i] == XorO && col3[i - 1] == XorO && col3[i - 2] == XorO && col3[i - 3] == XorO)
+			|| (col4[i] == XorO && col4[i - 1] == XorO && col4[i - 2] == XorO && col4[i - 3] == XorO)
+			|| (col5[i] == XorO && col5[i - 1] == XorO && col5[i - 2] == XorO && col5[i - 3] == XorO)
+			|| (col6[i] == XorO && col6[i - 1] == XorO && col6[i - 2] == XorO && col6[i - 3] == XorO)
+			|| (col7[i] == XorO && col7[i - 1] == XorO && col7[i - 2] == XorO && col7[i - 3] == XorO)) {
 			*win = 1;
 		}
 		// for diagonally up right
-		if ((col1[i] == XorO || col2[i - 1] == XorO || col3[i - 2] == XorO || col4[i - 3] == XorO)
-		&& (col2[i] == XorO || col3[i - 1] == XorO || col4[i - 2] == XorO || col5[i - 3] == XorO)
-		&& (col3[i] == XorO || col4[i - 1] == XorO || col5[i - 2] == XorO || col6[i - 3] == XorO)
-		&& (col4[i] == XorO || col5[i - 1] == XorO || col6[i - 2] == XorO || col7[i - 3] == XorO)) {
+		if ((col1[i] == XorO && col2[i - 1] == XorO && col3[i - 2] == XorO && col4[i - 3] == XorO)
+			|| (col2[i] == XorO && col3[i - 1] == XorO && col4[i - 2] == XorO && col5[i - 3] == XorO)
+			|| (col3[i] == XorO && col4[i - 1] == XorO && col5[i - 2] == XorO && col6[i - 3] == XorO)
+			
+			
+			||(col4[i] == XorO && col5[i - 1] == XorO && col6[i - 2] == XorO && col7[i - 3] == XorO)) {
 			*win = 1;
 		}
 		// for diagonally up left
-		if ((col7[i] == XorO || col6[i - 1] == XorO || col5[i - 2] == XorO || col4[i - 3] == XorO)
-		&& (col6[i] == XorO || col5[i - 1] == XorO || col4[i - 2] == XorO || col3[i - 3] == XorO)
-		&& (col5[i] == XorO || col4[i - 1] == XorO || col3[i - 2] == XorO || col2[i - 3] == XorO)
-		&& (col4[i] == XorO || col3[i - 1] == XorO || col2[i - 2] == XorO || col1[i - 3] == XorO)) {
+		if ((col7[i] == XorO && col6[i - 1] == XorO && col5[i - 2] == XorO && col4[i - 3] == XorO)
+			|| (col6[i] == XorO && col5[i - 1] == XorO && col4[i - 2] == XorO && col3[i - 3] == XorO)
+			|| (col5[i] == XorO && col4[i - 1] == XorO && col3[i - 2] == XorO && col2[i - 3] == XorO)
+		
+			|| (col4[i] == XorO && col3[i - 1] == XorO && col2[i - 2] == XorO && col1[i - 3] == XorO)) {
 			*win = 1;
 		}
 	}
@@ -140,7 +143,8 @@ void buildBoard(int *col1, int *col2, int *col3, int *col4, int *col5, int *col6
 		if (i>0 && i<7)
 			printf(" | %c %c %c %c %c %c %c |\n",
 			col1[i], col2[i], col3[i], col4[i], col5[i], col6[i], col7[i]);
-		if (i == 6);
+		if (i == 6)
+		;
 			printf("  ---------------\n\n");
 	}
 }
