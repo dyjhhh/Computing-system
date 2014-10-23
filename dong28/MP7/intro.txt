@@ -8,7 +8,9 @@ This code implements the board game Connect 4.Connect 4 is a game where two play
 | X X X X * * * |
 | X O O O * * * |
  ---------------
-Player 1 Wins!!!connect4.c – This file contains the function definitions for the six functions explained in the Details 
+Player 1 Wins!!
+
+connect4.c – This file contains the function definitions for the six functions explained in the Details 
 section below. There are bugs only in this file.
 connect4.h – This file contains the function prototypes for the six functions.
 main.c – This file contains the main function which sets up the game board, gets the moves from the players, and checks for win using the functions defined in connect4.c.
