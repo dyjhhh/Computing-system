@@ -1,0 +1,45 @@
+Compilation Results:
+*******************
+mergesort.c: In function ‘merge’:
+mergesort.c:73: error: ‘size’ undeclared (first use in this function)
+mergesort.c:73: error: (Each undeclared identifier is reported only once
+mergesort.c:73: error: for each function it appears in.)
+mergesort.c:75: error: ‘i’ undeclared (first use in this function)
+mergesort.c:75: warning: left-hand operand of comma expression has no effect
+mergesort.c:75: error: expected ‘;’ before ‘)’ token
+mergesort.c:77: error: expected ‘;’ before ‘}’ token
+mergesort.c: In function ‘mergesort’:
+mergesort.c:86: error: expected expression before ‘int’
+mergesort.c:86: error: too few arguments to function ‘mergesort’
+mergesort.c:86: warning: ‘return’ with a value, in function returning void
+mergesort.c:88: error: expected expression before ‘]’ token
+mergesort.c:91: error: expected expression before ‘]’ token
+mergesort.c:95: error: expected expression before ‘int’
+mergesort.c:95: warning: ‘return’ with a value, in function returning void
+mergesort.c:95: error: expected statement before ‘]’ token
+mergesort.c: In function ‘merge’:
+mergesort.c:97: error: lvalue required as left operand of assignment
+mergesort.c:98: error: expected expression before ‘int’
+mergesort.c:98: warning: ‘return’ with a value, in function returning void
+mergesort.c:98: error: expected statement before ‘]’ token
+
+Test 0, Even:
+*******************
+Gold:
+4 8 5 1 2 6 0 9 3 7 
+0 1 2 3 4 5 6 7 8 9 
+Student:
+
+Test 1, Odd:
+*******************
+Gold:
+2 0 3 7 1 4 6 8 5 
+0 1 2 3 4 5 6 7 8 
+Student:
+
+Test 2, Duplicates:
+*******************
+Gold:
+0 7 4 0 5 1 8 7 2 3 
+0 0 1 2 3 4 5 7 7 8 
+Student:

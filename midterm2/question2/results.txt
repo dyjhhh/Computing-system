@@ -1,0 +1,47 @@
+Compilation Results
+-------------------------------
+-------------------------------
+Test Case 1
+-------------------------------
+-------------------------------
+Input:
+This is a random sentence used for the main string.
+ing.
+
+Expected Output:
+Enter the main string: Enter the substring: Substring found!
+Program Output:
+Enter the main string: Enter the substring: No substring found in the main string.
+Test Case 2
+-------------------------------
+-------------------------------
+Input:
+ababcabcdef
+abcd
+
+Expected Output:
+Enter the main string: Enter the substring: Substring found!
+Program Output:
+Enter the main string: Enter the substring: Substring found!
+Test Case 3
+-------------------------------
+-------------------------------
+Input:
+This is a random sentence used for the main string.
+semtence
+
+Expected Output:
+Enter the main string: Enter the substring: No substring found in the main string.
+Program Output:
+Enter the main string: Enter the substring: No substring found in the main string.
+Test Case 4
+-------------------------------
+-------------------------------
+Input:
+Let's make this string longer. This is a random sentence used for the main string.
+string,
+
+Expected Output:
+Enter the main string: Enter the substring: No substring found in the main string.
+Program Output:
+Enter the main string: Enter the substring: No substring found in the main string.
