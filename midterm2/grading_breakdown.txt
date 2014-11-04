@@ -1,0 +1,2 @@
+Netid Problem 1 Comment Grader Problem 2 Comment Grader Problem 3 Comment Grader Midterm 2 Total
+dong28 10 Merge is incomplete; recursive calls are incorrect Potok 15 bad logic. does not reset index Pratik 15 No null Chakradhar 40
