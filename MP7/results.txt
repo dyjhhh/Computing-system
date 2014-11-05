@@ -1,0 +1,19 @@
+Submission points
+********************
+Lost 2 points
+
+******** Compilation Results: ********
+No compilation errors
+
+********** Test Input 1 Diff **********
+273c273
+< Player 1 Wins!!!
+---
+> Player 2 Wins!!!
+
+********** Test Input 2 Diff **********
+108c108
+< Player 1: Can't let you move there!
+---
+> Player 1: Invalid input.
+

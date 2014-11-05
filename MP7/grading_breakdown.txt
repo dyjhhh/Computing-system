@@ -1,0 +1,2 @@
+aadani2 20 15 15 5 15 5 5 5 5 0 90 checkMove bug
+dong28 20 15 0 15 15 5 5 0 1 0 76 Winner bug unfixed; unoriginal introParagraph; lacking comments
