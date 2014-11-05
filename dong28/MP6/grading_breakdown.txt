@@ -1,0 +1,2 @@
+NetId getRadius (5%) convolveImage(35%) pixelate(30%) calculateGFilter(10%) Compiles without errors and warnings (5%) Indentation and Variable Names(5%) Intro Para (5%) Comments(5%)
+dong28 5 0 0 10 5 5 5 5 0 1 5 convolveImage, pixelate incorrect

@@ -1,0 +1,38 @@
+Submission points
+********************
+Lost 0 points
+
+******** Compilation Results: ********
+g++ -g -Wall  -c main.c
+g++ -g -Wall  -c functions.c
+g++ -g -Wall  main.o lodepng.o imageData.o functions.o -o mp7
+g++ -g -Wall  test.o lodepng.o imageData.o functions.o solution.o -o test
+
+********** Test Results **********
+Testing getRadius:
+getRadius correct
+
+Testing calculateGausFilter:
+calculateGausFilter correct
+
+Testing convolveImage:
+convolveImage incorrect
+
+Testing convertToGray
+convertToGray incorrect
+
+Testing invertImage:
+invertImage correct
+
+Testing flipImage:
+flipImage incorrect
+
+Testing pixelate:
+pixelate incorrect
+
+Testing colorDodge:
+colorDodge incorrect
+
+Testing pencilSketch:
+pencilSketch incorrect
+
