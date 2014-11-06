@@ -1,2 +1,2 @@
-aadani2 20 15 15 5 15 5 5 5 5 0 90 checkMove bug
+NetId Bug 1 (20%)  Bug 2 (15%) Bug 3 (15%) Bug 4 (15%) Bug 5 (15%) Compilation generates no warnings (5%) Indentation and variable names (5%) Intro Para (5%) Clear, well-commented (5%) Points taken off Total Comments
 dong28 20 15 0 15 15 5 5 0 1 0 76 Winner bug unfixed; unoriginal introParagraph; lacking comments
