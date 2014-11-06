@@ -59,7 +59,6 @@ int CheckSudoku(int n, int *board, int indicator) {
 	    for (a=0; a<n*n-1; a++){
 	 	char1=copy[a]; char2= copy[a+1];
 	 	if ((char1 == char2)&&(char1 !=0)){
-//			printf("rows error\n");
 			return ILLEGAL_STATE;}			/*check if it is illegal*/
 		}
 	
@@ -80,13 +79,14 @@ int CheckSudoku(int n, int *board, int indicator) {
 	    for (a=0; a<n*n-1; a++){
 	 	char1=copy[a]; char2= copy[a+1];
 	 	if ((char1 == char2)&&(char1 !=0)){
-//			printf("columns error\n");
+//		  
 			return ILLEGAL_STATE;}			/*check if it is illegal*/
 		}
 	
     
 	index=0;
     }
+    
 /*subregion*/
     index=0;   
     for (rowbig=0; rowbig<n; rowbig++){
@@ -104,7 +104,6 @@ int CheckSudoku(int n, int *board, int indicator) {
 	    for (i=0; i<n*n-1; i++){
 	 	char1=copy[i]; char2= copy[i+1];
 	 	if ((char1 == char2)&&(char1 !=0)){
-//				printf("subregion\n");
 			return ILLEGAL_STATE;}			/*check if it is illegal*/
 		}
 
@@ -112,38 +111,6 @@ int CheckSudoku(int n, int *board, int indicator) {
 	index=0;
   }
 }
-
-
-
-//challenge: even
-p=0;
-index=0;
-	for (i=0; i<n*n; i++){
-		for (j=0; j<n*n; j++){
-			even[index]= board[81+j+n*n*i];
-			copy[index]= board[p];
-			if (even[index] == 1){				
-				if (copy[index]%2 != 0){		// if see 1, must be even
-//					printf("%d", board[81+j+n*n*i]);
-					return ILLEGAL_STATE;}		// if this trial is not even, illegal
-			}
-		
-			++index;					//if nothing special, keep on looping
-			++p;
-
-		}
-		index=0;
-//		printf("\n");
-	}
-
-
-
-
-
-
-
-
-
 
     /*check the diagonals if indicator is 1*/
 if (indicator == 1){
@@ -154,7 +121,7 @@ if (indicator == 1){
 	    for (i=0; i<n*n-1; i++){
 	 	char1=copy[i]; char2= copy[i+1];
 	 	if ((char1 == char2)&&(char1 !=0)){
-//				printf("subregion\n");
+//		     
 			return ILLEGAL_STATE;}			/*check if it is illegal*/
 		}
 
@@ -164,7 +131,7 @@ if (indicator == 1){
 	    for (i=0; i<n*n-1; i++){
 	 	char1=copy[i]; char2= copy[i+1];
 	 	if ((char1 == char2)&&(char1 !=0)){
-//				printf("subregion\n");
+//			       
 			return ILLEGAL_STATE;}			/*check if it is illegal*/
 		}
 
@@ -174,7 +141,7 @@ if (indicator == 1){
     for (j=0; j<n*n*n*n; j++){ 
 	char1=board[j]; 					/*if it is not illegal, is it incomplete?*/
     	if (char1 == 0){
-//		printf("incomplete\n");
+//		
 		return INCOMPLETE_STATE;}
 
     }
@@ -190,8 +157,7 @@ if (indicator == 1){
 /* This function solves the board with recursion                             */
 /* Base case is when you have GOAL_STATE and ILLEGAL_STATE                  */
 int SolveSudoku(int n, int *board,int indicator) {
-    int p, g=(n*n)+1;
-//	int i;
+  int p, g=(n*n)+1;
 	int try=0;
 
     	switch(CheckSudoku(n,board,indicator)) {
