@@ -45,8 +45,7 @@ int CheckSudoku(int n, int *board, int indicator) {
     //copy is used as a temp array to store a row, or col, or sub-region of numbers.
     //the memory for copy is dynamically allocated
      int * copy = malloc(n*n*sizeof(int));
-     int * even = malloc(n*n*sizeof(int));
-
+  
 	for (i=0; i<n*n; i++){
 	for (j=0; j<n*n; j++){	
 		copy[index]= board[p];
