@@ -48,13 +48,13 @@ WAV *read_file(char *wavfile){
  
     FILE* wav_file = fopen(wavfile,"r");
     WAV* wav_ptr = (WAV *)malloc(sizeof(WAV));
-    int i;
+    int n;
     char temp;
     //print ChunkID
-    for(i=0;i<4;i++)
+    for(n=0;n<4;n++)
     {
         fscanf(wav_file,"%c",&temp);
-        wav_ptr -> RIFF[i] = temp;
+        wav_ptr -> RIFF[n] = temp;
     }
     printf("RIFF: %c%c%c%c\n",wav_ptr ->RIFF[0],wav_ptr ->RIFF[1],wav_ptr ->RIFF[2],wav_ptr ->RIFF[3]);
  
@@ -63,18 +63,18 @@ WAV *read_file(char *wavfile){
     printf("Chunksize: %d\n",wav_ptr -> ChunkSize);
  
     //print Format
-    for(i=0;i<4;i++)
+    for(n=0;n<4;n++)
     {
         fscanf(wav_file,"%c",&temp);
-        wav_ptr -> WAVE[i] = temp;
+        wav_ptr -> WAVE[n] = temp;
     }    
     printf("WAVE: %c%c%c%c\n",wav_ptr ->WAVE[0],wav_ptr ->WAVE[1],wav_ptr ->WAVE[2],wav_ptr ->WAVE[3]);
  
     //print Subchunk1ID
-    for(i=0;i<4;i++)
+    for(n=0;n<4;n++)
     {
         fscanf(wav_file,"%c",&temp);
-        wav_ptr -> fmt[i] = temp;
+        wav_ptr -> fmt[n] = temp;
     }
     printf("fmt: %c%c%c%c\n",wav_ptr ->fmt[0],wav_ptr ->fmt[1],wav_ptr ->fmt[2],wav_ptr ->fmt[3]);
  
@@ -109,17 +109,17 @@ WAV *read_file(char *wavfile){
     //extra
     wav_ptr->extra = (char*) malloc( (wav_ptr -> Subchunk1Size - 16) * sizeof(char));
  
-    for(i=0;i<wav_ptr -> Subchunk1Size - 16;i++)
+    for(n=0;n<wav_ptr -> Subchunk1Size - 16;n++)
     {
         fscanf(wav_file,"%c",&temp);
-        wav_ptr -> extra[i] = temp;
+        wav_ptr -> extra[n] = temp;
     }
  
     //print Subchunk2ID
-    for(i=0;i<4;i++)
+    for(n=0;n<4;n++)
     {
         fscanf(wav_file,"%c",&temp);
-        wav_ptr -> Subchunk2ID[i] = temp;
+        wav_ptr -> Subchunk2ID[n] = temp;
     }
     printf("Subchunk2ID: %c%c%c%c\n",wav_ptr ->Subchunk2ID[0],wav_ptr ->Subchunk2ID[1],wav_ptr ->Subchunk2ID[2],wav_ptr ->Subchunk2ID[3]);
  
@@ -130,9 +130,9 @@ WAV *read_file(char *wavfile){
     //data
     wav_ptr->data= (short int*)malloc( ((wav_ptr->Subchunk2Size*8)/wav_ptr->bitsPerSample) * sizeof(short int));
  
-    for(i=0;i<(wav_ptr->Subchunk2Size*8)/wav_ptr->bitsPerSample;i++)
+    for(n=0;n<(wav_ptr->Subchunk2Size*8)/wav_ptr->bitsPerSample;n++)
     {
-        wav_ptr->data[i] = little_endian_2(wav_file);
+        wav_ptr->data[n] = little_endian_2(wav_file);
     }
  
     fclose(wav_file);
@@ -142,15 +142,14 @@ WAV *read_file(char *wavfile){
  
  
 //Takes a wav file and adds a soundbite to it at a given time; new wav file stored in outfile
-void sound_bite(WAV *inwav, WAV *bitewav, char *outfile, double time){
+void sloop(WAV *inwav, char *outfile, double a, double b, int n){
  
     FILE* out = fopen(outfile,"w");
     char c0,c1,c2,c3;
-    int i;
    
     //Reprints RIFF
-    for(i=0;i<4;i++)
-        fprintf(out,"%c",inwav -> RIFF[i]);
+    for(n=0;n<4;n++)
+        fprintf(out,"%c",inwav -> RIFF[n]);
    
     //Reverse endian chunksize
     c0 = (inwav->ChunkSize);
@@ -160,12 +159,12 @@ void sound_bite(WAV *inwav, WAV *bitewav, char *outfile, double time){
     fprintf(out,"%c%c%c%c",c0,c1,c2,c3);
    
     //Reprints WAVE
-    for(i=0;i<4;i++)
-        fprintf(out,"%c",inwav -> WAVE[i]);
+    for(n=0;n<4;n++)
+        fprintf(out,"%c",inwav -> WAVE[n]);
  
     //Reprints fmt
-    for(i=0;i<4;i++)
-        fprintf(out,"%c",inwav -> fmt[i]);
+    for(n=0;n<4;n++)
+        fprintf(out,"%c",inwav -> fmt[n]);
  
     //Reverse endian subchunk1size
     c0 = (inwav->Subchunk1Size);
@@ -209,12 +208,12 @@ void sound_bite(WAV *inwav, WAV *bitewav, char *outfile, double time){
     fprintf(out,"%c%c",c0,c1);
  
     //Reprints extra
-    for(i=0;i<inwav ->Subchunk1Size - 16;i++)
-        fprintf(out,"%c",inwav -> extra[i]);
+    for(n=0;n<inwav ->Subchunk1Size - 16;n++)
+        fprintf(out,"%c",inwav -> extra[n]);
  
     //Reprints Subchunck2ID
-    for(i=0;i<4;i++)
-        fprintf(out,"%c",inwav -> Subchunk2ID[i]);    
+    for(n=0;n<4;n++)
+        fprintf(out,"%c",inwav -> Subchunk2ID[n]);    
  
     //Reverse endian subchunk2size
     c0 = (inwav->Subchunk2Size);
@@ -223,38 +222,22 @@ void sound_bite(WAV *inwav, WAV *bitewav, char *outfile, double time){
     c3 = (inwav->Subchunk2Size>>24);
     fprintf(out,"%c%c%c%c",c0,c1,c2,c3);    
  
-    double start_time= inwav->SamplesPerSec*2*time;
-    double end_time = bitewav->Subchunk2Size*8/bitewav->bitsPerSample;
-    double stop = inwav->Subchunk2Size*8/inwav->bitsPerSample;
-   
     //time before sound bite
-    for(i=0; i<start_time;i++)
+    for(n=0; n<a ;n++)
     {  
-        c0=inwav->data[i];
-        c1=inwav->data[i]>>8;
+        c0=inwav->data[n];
+        c1=inwav->data[n]>>8;
  
         fprintf(out,"%c%c",c0,c1);
     }
    
-    //time with sound bite
-    int j =0;
-    for(i=start_time;i<end_time+start_time;i++)
-    {
-        char a= inwav->data[i];
-        char b= inwav->data[i]>>8;
-        char c= bitewav->data[j];
-        char d= bitewav->data[j]>>8;
-        c0 = a+c;
-        c1= b+d;
-        fprintf(out,"%c%c",c0,c1);
-        j++;
-    }
+
    
     //time after soundbite
-    for(i=end_time+start_time; i<stop;i++)
+    for(n=a; n<b;n++)
     {  
-        c0=inwav->data[i];
-        c1=inwav->data[i]>>8;
+        c0=inwav->data[n];
+        c1=inwav->data[n]>>8;
  
         fprintf(out,"%c%c",c0,c1);
     }
