@@ -1,0 +1,1 @@
+This program uses 4 functions to manipulate a WAV file. little_endian_2 and 4 changes 2 or 4 bits respectively from big to little endian notation. read_file prints out the header of a wav file to the terminal based on a given input wav file. Finally, sloop() takes a wav file and outputs another wav file which loops from point a to point b n number of times.

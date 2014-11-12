@@ -3,14 +3,7 @@
 #include <math.h>
  
 #include "prog9.h"
- 
-//This program uses 4 functions to add a sound bite to a WAV file. little_endian_2 and 4
-//change 2 or 4 bits respectively from big to little endian notation.
-//read_file prints out the header of a wav file to the terminal based on a given input wav file/
-//sound_bite reverses any little endians and reprints the first file to another file. When it gets to
-//the data section, it adds a second sound bite to the original wav file, and stores the combination
-//in the output as well.The results is an additional sound at a given input time.
- 
+  
 //Switches a big endian form number of 2 bits to a little_endian form number
 int little_endian_2(FILE *fptr){
  
@@ -141,7 +134,7 @@ WAV *read_file(char *wavfile){
 }
  
  
-//Takes a wav file and adds a soundbite to it at a given time; new wav file stored in outfile
+//Takes a wav file and loops from point a to b n number of times; new wav file stored in outfile
 void sloop(WAV *inwav, char *outfile, double a, double b, int n){
  
     FILE* out = fopen(outfile,"w");
@@ -222,18 +215,8 @@ void sloop(WAV *inwav, char *outfile, double a, double b, int n){
     c3 = (inwav->Subchunk2Size>>24);
     fprintf(out,"%c%c%c%c",c0,c1,c2,c3);    
  
-    //time before sound bite
-    for(n=0; n<a ;n++)
-    {  
-        c0=inwav->data[n];
-        c1=inwav->data[n]>>8;
- 
-        fprintf(out,"%c%c",c0,c1);
-    }
    
-
-   
-    //time after soundbite
+    //time after a
     for(n=a; n<b;n++)
     {  
         c0=inwav->data[n];
