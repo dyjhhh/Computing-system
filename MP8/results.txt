@@ -1,0 +1,16 @@
+Submission points
+********************
+Lost 0 points
+
+******** Compilation Results: ********
+No compilation errors
+
+********** Test Input 1**********
+Sudoku SOLVED for n = 3 indicator = 0
+
+********** Test Input 2**********
+Sudoku SOLVED for n = 2 indicator = 0
+
+********** Test Input 3**********
+Sudoku SOLVED for n = 3 indicator = 1
+

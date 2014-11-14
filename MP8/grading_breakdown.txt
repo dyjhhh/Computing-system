@@ -1,0 +1,2 @@
+NetId,IndexCal (5%),Bubblesort (10%),CheckSudoku (30%),SolveSudoku (35%),Compilation generates no warnings (5%),Indentation and variable names (5%),Intro Para (5%),"Clear well-commented (5%)",Challenge (15%),Points taken off,Total,Comments
+dong28,5,10,30,35,5,5,5,5,,0,100,
