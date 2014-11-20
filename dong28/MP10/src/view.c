@@ -338,7 +338,6 @@ void update_score(snake_view *view) {
     SDL_BlitSurface(image, NULL, view->screen, &rect);
     SDL_BlitSurface(text_surface, NULL, view->screen, &rect);
     SDL_BlitSurface(text_surface, NULL, view->screen, &rect);
-
     snprintf(num, sizeof(num), "%d", view->game->human_snake->length);
     rect.x = view->game->board->cols * sprite_size + 150;
     rect.y = 120;
