@@ -110,10 +110,122 @@ void destroy_snake(snake * cur_snake)
     free(cur_snake);
 }
 
+void append_snake_head(snake * cur_snake, board * cur_board, int row, int col)
+/*! Add a new snake segment to the given snake with the given row and column.
+    This segment is the new snake head; update the snake data structure to integrate
+    the new segment.  Needed memory should be allocated with the malloc family of
+    functions.  Also mark the corresponding cell on the given board as being occupied
+    by a snake.
+*/
+{
+    snake_segment *pSeg = malloc(sizeof(snake_segment));
+    pSeg->row = row;
+    pSeg->col = col;
+    pSeg->next = NULL;
 
+    /*previous head snake point to the new snake head */
+    cur_snake->head->next = pSeg;
+    /* set the new head */
+    cur_snake->head = pSeg;
 
+    cell *pCell = board_cell(cur_board, row, col);
+    *pCell = CELL_SNAKE;
+}
 
+void remove_snake_tail(snake * cur_snake, board * cur_board)
+/*! Mark the cell on the board corresponding to the snake's last segment
+    as open and remove the last segment from the snake.  Update the snake
+    data structure to reflect this removal.
+    
+    If this removal results in the snake having no segments, then set the
+    snake's tail and head to NULL to indicate a nonexistent snake.
+*/
+{
+    /*mark corresponding cell to open */
+    cell *pCell = board_cell(cur_board, cur_snake->tail->row, cur_snake->tail->col);
+    *pCell = CELL_OPEN;   
+    
+    /* store the 2nd to last piece of the snake which will be the new tail */
+    snake_segment *pSeg = cur_snake->tail->next;
+    /* free the current tail */
+    free(cur_snake->tail);
+    /* put in the new tail */
+    cur_snake->tail = pSeg;
 
+    if(pSeg == NULL)
+    cur_snake->head = NULL;
+    
+}
+
+void update_snake_head(snake * cur_snake, board * cur_board, int growth_per_food)
+/*! Attempt to move the head of the given snake one cell (by appending to the snake)
+    according to the snake's heading (north is up).  The head can move in the given
+    direction if the destination cell is either open or food.  If the cell is food,
+    add the given growth per food to the snake's growth counter.  If the destination
+    cell is a snake or wall, do nothing.
+*/
+{
+
+/* do nothing if it has no pieces */
+   if(cur_snake->head == NULL)
+    {
+    }
+   else
+   {
+       int col = cur_snake->head->col;
+       int row = cur_snake->head->row;
+    
+
+       switch(cur_snake->heading)
+       {
+        case NORTH:
+        row--;
+        break;
+    case SOUTH:
+        row++;
+        break;
+    case EAST:
+        col++;
+        break;
+    case WEST:
+        col--;
+        break;
+        }
+
+    
+      if( *(board_cell(cur_board, row, col)) == CELL_OPEN || *(board_cell(cur_board, row, col)) == CELL_FOOD )
+      { 
+          if( *(board_cell(cur_board, row, col)) == CELL_FOOD )
+              cur_snake->growth += growth_per_food;
+
+          append_snake_head(cur_snake, cur_board, row, col);    
+      }  
+    }   
+    
+}
+
+void update_snake_tail(snake * cur_snake, board * cur_board)
+/*! If the given snake's growth counter is 0, advance the tail of the
+    given snake one cell (by removing the current snake tail).
+    If the snake's growth counter is positive, decrement the growth
+    counter and do not move the snake's tail.
+*/
+{
+    /* do nothing if it has no pieces */
+    if(cur_snake->tail == NULL)
+    {
+    }
+
+    else
+    {
+        if(cur_snake->growth == 0)
+            remove_snake_tail(cur_snake, cur_board);
+
+        else if( cur_snake->growth > 0 )
+        cur_snake->growth--;
+    }
+
+}
 
 int next_frame(game * cur_game)
 /*! Modify the state of the given snake game to reflect one game iteration.
