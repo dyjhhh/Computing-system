@@ -1,0 +1,17 @@
+Submission points
+********************
+Lost 0 points
+
+Compilation Results
+*******************
+
+MP9
+*******************
+Endian2: 10
+Endian4: 10
+ReadFile: 25
+sloop: 0
+
+Challenges
+*******************
+LoPass: 0
