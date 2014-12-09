@@ -12,6 +12,14 @@
 void delete_tree(node * curNode)
 {
     // YOUR CODE HERE
+
+ if (curNode == NULL) {
+ return;
+ }
+ deleteTree(curNode->getRight());
+ deleteTree(curNode->getLeft());
+ delete curNode;
+
 }
 
 /* create_postfix_tree - given an expression string creates an expression tree
@@ -22,6 +30,43 @@ void delete_tree(node * curNode)
 node * create_postfix_tree(char * exp_str)
 {
     // YOUR CODE HERE
+    int length = strlen(exp_str);
+        stack *exp_str_stack = (stack *) malloc(sizeof(stack));
+        int idx;
+        node *temp;
+ 
+        stackInit(exp_str_stack);
+ 
+        for (idx = 0; idx < length; idx++) {
+                if (exp_str[idx] == ' ') continue;
+ 
+                if (exp_str[idx] >= 48 && exp_str[idx] <= 57) {
+                        temp = (node *)malloc(sizeof(node));
+                        temp->item = exp_str[idx];
+                        temp->left = NULL;
+                        temp->right = NULL;
+                        stackPush(exp_str_stack, temp);
+                }
+               
+                else {
+                        if (exp_str[idx] == '*' ||
+                        exp_str[idx] == '+' ||
+                        exp_str[idx] == '-' ||
+                        exp_str[idx] == '/') {
+ 
+                        temp = (node *)malloc(sizeof(node));
+                        temp->item = exp_str[idx];
+                        temp->right = stackPop(exp_str_stack);
+                        temp->left = stackPop(exp_str_stack);
+                        stackPush(exp_str_stack, temp);
+                        }
+                }
+        }
+ 
+        node *root = stackPop(exp_str_stack);
+        free(exp_str_stack);
+        return root;
+ 
 }
 
 /* evaluate_postfix - given an expression tree recursively evaluates it
@@ -32,6 +77,18 @@ node * create_postfix_tree(char * exp_str)
 int evaluate_postfix(node * curNode)
 {
     // YOUR CODE HERE
+if (curNode->left == NULL && curNode->right == NULL) {
+                return curNode->item-48;
+        }
+ 
+        switch (curNode->item) {
+                case '+': return evaluate_postfix(curNode->left) + evaluate_postfix(curNode->right);
+                case '-': return evaluate_postfix(curNode->left) - evaluate_postfix(curNode->right);
+                case '*': return evaluate_postfix(curNode->left) * evaluate_postfix(curNode->right);
+                case '/': return evaluate_postfix(curNode->left) / evaluate_postfix(curNode->right);
+        }
+ 
+        return 0;
 }
 
 /* postfix - given an expression string prints the solution
