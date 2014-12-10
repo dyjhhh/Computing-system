@@ -1,4 +1,5 @@
 #define MAXSIZE 100
+#include <iostream>
 
 /* A tree node that makes up the expression tree
    item - the item (operand or value) for this node

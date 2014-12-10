@@ -16,9 +16,9 @@ void delete_tree(node * curNode)
  if (curNode == NULL) {
  return;
  }
-if(CurNode->left)   
+if(curNode->left)   
     delete_tree(curNode->left);
-    if(CurNode->right)  
+    if(curNode->right)  
         delete_tree(curNode->right);
     delete curNode;
 
@@ -32,30 +32,42 @@ if(CurNode->left)
 node * create_postfix_tree(char * exp_str)
 {
     // YOUR CODE HERE
-     int max=0;
-        int i=0;
+  int length = strlen(exp_str);
+        stack *exp_str_stack = (stack *) malloc(sizeof(stack));
+        int idx;
+        node *temp;
  
-    struct node *newnode = (node*)malloc(sizeof(node));
+        stackInit(exp_str_stack);
  
-    while(exp_str[i]!='\0'){
-        max = max +1;
+        for (idx = 0; idx < length; idx++) {
+                if (exp_str[idx] == ' ') continue;
  
-    }
- 
-    for(i=0; i<max; i++){
-        if(exp_str[i] != ' '){
-                if(exp_str[i]<='9' || exp_str>='0'){
-                        stackPush(myStack, exp_str[i]);
+                if (exp_str[idx] >= 48 && exp_str[idx] <= 57) {
+                        temp = (node *)malloc(sizeof(node));
+                        temp->item = exp_str[idx];
+                        temp->left = NULL;
+                        temp->right = NULL;
+                        stackPush(exp_str_stack, temp);
                 }
-                else{
-                        stackPop(myStack);
-                        newnode->item = exp_str[i];
-                        newnode->left = exp_str[i-2];
-                        newnode->right = exp_str[i-1];
-                        stackPush(myStack, newnode);
-                }
-    }
+               
+                else {
+                        if (exp_str[idx] == '*' ||
+                        exp_str[idx] == '+' ||
+                        exp_str[idx] == '-' ||
+                        exp_str[idx] == '/') {
  
+                        temp = (node *)malloc(sizeof(node));
+                        temp->item = exp_str[idx];
+                        temp->right = stackPop(exp_str_stack);
+                        temp->left = stackPop(exp_str_stack);
+                        stackPush(exp_str_stack, temp);
+                        }
+                }
+        }
+ 
+        node *root = stackPop(exp_str_stack);
+        free(exp_str_stack);
+        return root;
 }
 
 /* evaluate_postfix - given an expression tree recursively evaluates it
@@ -67,56 +79,18 @@ int evaluate_postfix(node * curNode)
 {
     // YOUR CODE HERE
    
-   int node, left, right;
- 
- 
-   // Check if its a leaf
-   if (curNode -> right == NULL && curNode -> left == NULL)
- 
-      {
- 
-        // Convert Char to Ints
-        right = curNode -> right -> item - '0';
-        left = curNode -> left -> item - '0';
- 
- 
-        // Evaluate the expression if its a leaf and return the computation
-        switch (curNode -> item)
- 
-              {
-                case '+':
-                  node = right + left;
-                  break;
- 
-                case '-':
-                  node = right - left;
-                  break;
- 
-                case '*':
-                  node = right * left;
-                  break;
- 
-                case '/':
-                  node = right / left;
-                  break;
- 
-                default:
-                  break;
-              }
- 
-      }
- 
-    else
- 
-        {
-          //Find a leaf if you didnt find one
-          evaluate_postfix(curNode -> right);
-          evaluate_postfix(curNode -> left);
- 
+    if (curNode->left == NULL && curNode->right == NULL) {
+                return curNode->item-48;
         }
  
-    return node;
+        switch (curNode->item) {
+                case '+': return evaluate_postfix(curNode->left) + evaluate_postfix(curNode->right);
+                case '-': return evaluate_postfix(curNode->left) - evaluate_postfix(curNode->right);
+                case '*': return evaluate_postfix(curNode->left) * evaluate_postfix(curNode->right);
+                case '/': return evaluate_postfix(curNode->left) / evaluate_postfix(curNode->right);
+        }
  
+        return 0;
 }
 /* postfix - given an expression string prints the solution
  *           the solution is just a number (i.e. printf("%d\n", solution); )
@@ -127,10 +101,9 @@ int evaluate_postfix(node * curNode)
 void postfix(char * exp_str)
 {
     // YOUR CODE HERE
-        node * create_postfix_tree(char * exp_str)
-        int evaluate_postfix(node * curNode)
-        cout << node << endl;
-        void delete_tree(node * curNode)
+        node * root = create_postfix_tree(exp_str);
+        printf("%d\n", evaluate_postfix(root));
+        delete_tree(root);
 
 }
 
