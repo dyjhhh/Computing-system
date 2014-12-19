@@ -1,0 +1,14 @@
+Submission points
+********************
+Lost 8 points
+
+Compilation Results
+********************
+MP 12
+********************
+create_postfix_tree: 30
+evaluate_postfix: 25
+postfix: 5
+delete_tree: 10
+challenge: 0
+
