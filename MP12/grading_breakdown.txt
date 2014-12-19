@@ -1,2 +1,2 @@
-aaayala3,30,25,5,10,5,10,5,10,0,0,100,
+NetId,create_postfix_tree(30%),evaluate_postfix(25%),postfix(5%),delete_tree(10%),No compiler errors (5%),Approp variables/spacing (10%),intro (5%),comments (10%),challenge(20%),Points taken off,Total,Comments
 dong28,30,25,5,10,5,10,5,0,0,0,90,No additional comments
